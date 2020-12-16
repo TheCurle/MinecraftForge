@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -50,6 +50,15 @@ public class BonemealEvent extends PlayerEvent
     private final IBlockState block;
     private final EnumHand hand;
     private final ItemStack stack;
+
+    /**
+     * @deprecated Use {@link #BonemealEvent(EntityPlayer, World, BlockPos, IBlockState, EnumHand, ItemStack)} instead.
+     */
+    @Deprecated
+    public BonemealEvent(EntityPlayer player, World world, BlockPos pos, IBlockState block)
+    {
+        this(player, world, pos, block, null, ItemStack.EMPTY);
+    }
 
     public BonemealEvent(@Nonnull EntityPlayer player, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState block, @Nullable EnumHand hand,
             @Nonnull ItemStack stack)

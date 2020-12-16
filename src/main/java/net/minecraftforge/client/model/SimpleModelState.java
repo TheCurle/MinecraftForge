@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,7 @@ import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 
-import java.util.Optional;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 
 /*
@@ -36,7 +36,7 @@ public final class SimpleModelState implements IModelState
 
     public SimpleModelState(ImmutableMap<? extends IModelPart, TRSRTransformation> map)
     {
-        this(map, Optional.empty());
+        this(map, Optional.<TRSRTransformation>absent());
     }
 
     public SimpleModelState(ImmutableMap<? extends IModelPart, TRSRTransformation> map, Optional<TRSRTransformation> def)
@@ -45,7 +45,6 @@ public final class SimpleModelState implements IModelState
         this.def = def;
     }
 
-    @Override
     public Optional<TRSRTransformation> apply(Optional<? extends IModelPart> part)
     {
         if(!part.isPresent())
@@ -54,8 +53,8 @@ public final class SimpleModelState implements IModelState
         }
         if(!map.containsKey(part.get()))
         {
-            return Optional.empty();
+            return Optional.absent();
         }
-        return Optional.ofNullable(map.get(part.get()));
+        return Optional.fromNullable(map.get(part.get()));
     }
 }

@@ -1,26 +1,7 @@
-/*
- * Minecraft Forge
- * Copyright (c) 2016-2020.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation version 2.1
- * of the License.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- */
-
 package net.minecraftforge.client.model;
 
-import java.util.function.Function;
-import java.util.Optional;
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -32,7 +13,6 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
-import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.EnumFacing;
@@ -56,7 +36,6 @@ final class FancyMissingModel implements IModel
     private static final TRSRTransformation smallTransformation = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(null, null, new Vector3f(.25f, .25f, .25f), null));
     private static final LoadingCache<VertexFormat, SimpleModelFontRenderer> fontCache = CacheBuilder.newBuilder().maximumSize(3).build(new CacheLoader<VertexFormat, SimpleModelFontRenderer>()
     {
-        @Override
         public SimpleModelFontRenderer load(VertexFormat format) throws Exception
         {
             Matrix4f m = new Matrix4f();
@@ -91,15 +70,15 @@ final class FancyMissingModel implements IModel
     }
 
     @Override
-    public Collection<ResourceLocation> getTextures()
+    public Collection<ResourceLocation> getDependencies()
     {
-        return ImmutableList.of(font2);
+        return ImmutableList.of();
     }
 
     @Override
-    public Optional<ModelBlock> asVanillaModel()
+    public Collection<ResourceLocation> getTextures()
     {
-        return missingModel.asVanillaModel();
+        return ImmutableList.of(font2);
     }
 
     @Override
@@ -111,7 +90,13 @@ final class FancyMissingModel implements IModel
         return new BakedModel(bigMissing, smallMissing, fontCache.getUnchecked(format), message, bakedTextureGetter.apply(font2));
     }
 
-    static final class BakedModel implements IBakedModel
+    @Override
+    public IModelState getDefaultState()
+    {
+        return TRSRTransformation.identity();
+    }
+
+    private static final class BakedModel implements IPerspectiveAwareModel
     {
         private final SimpleModelFontRenderer fontRenderer;
         private final String message;
@@ -181,6 +166,9 @@ final class FancyMissingModel implements IModel
 
         @Override
         public TextureAtlasSprite getParticleTexture() { return fontTexture; }
+
+        @Override
+        public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
 
         @Override
         public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }

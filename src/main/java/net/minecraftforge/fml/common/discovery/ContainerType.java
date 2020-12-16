@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,6 +23,8 @@ import java.util.List;
 
 import net.minecraftforge.fml.common.ModContainer;
 
+import com.google.common.base.Throwables;
+
 public enum ContainerType
 {
     JAR(JarDiscoverer.class),
@@ -36,9 +38,9 @@ public enum ContainerType
         {
             this.discoverer = discovererClass.newInstance();
         }
-        catch (ReflectiveOperationException e)
+        catch (Exception e)
         {
-            throw new RuntimeException(e);
+            throw Throwables.propagate(e);
         }
     }
 

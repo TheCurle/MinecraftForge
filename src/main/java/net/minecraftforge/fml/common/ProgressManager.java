@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -71,15 +71,11 @@ public class ProgressManager
         {
             long newTime = System.nanoTime();
             if (bar.timeEachStep)
-            {
-                String timeString = String.format("%.3f", ((float) (newTime - bar.lastTime) / 1000000 / 1000));
-                FMLLog.log.debug("Bar Step: {} - {} took {}s", bar.getTitle(), bar.getMessage(), timeString);
-            }
-            String timeString = String.format("%.3f", ((float) (newTime - bar.startTime) / 1000000 / 1000));
+                FMLLog.log.debug(String.format("Bar Step: %s - %s took %.3fs", bar.getTitle(), bar.getMessage(), ((float)(newTime - bar.lastTime) / 1000000 / 1000)));
             if (bar.getSteps() == 1)
-                FMLLog.log.debug("Bar Finished: {} - {} took {}s", bar.getTitle(), bar.getMessage(), timeString);
+                FMLLog.log.debug(String.format("Bar Finished: %s - %s took %.3fs", bar.getTitle(), bar.getMessage(), ((float)(newTime - bar.startTime) / 1000000 / 1000)));
             else
-                FMLLog.log.debug("Bar Finished: {} took {}s", bar.getTitle(), timeString);
+                FMLLog.log.debug(String.format("Bar Finished: %s took %.3fs", bar.getTitle(), ((float)(newTime - bar.startTime) / 1000000 / 1000)));
         }
         FMLCommonHandler.instance().processWindowMessages();
     }

@@ -1,6 +1,7 @@
+
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,7 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.registries.IRegistryDelegate;
+import net.minecraftforge.fml.common.registry.RegistryDelegate;
 
 import javax.annotation.Nullable;
 
@@ -39,7 +40,7 @@ public class FluidStack
 {
     public int amount;
     public NBTTagCompound tag;
-    private IRegistryDelegate<Fluid> fluidDelegate;
+    private RegistryDelegate<Fluid> fluidDelegate;
 
     public FluidStack(Fluid fluid, int amount)
     {
@@ -208,6 +209,7 @@ public class FluidStack
     {
         int code = 1;
         code = 31*code + getFluid().hashCode();
+        code = 31*code + amount;
         if (tag != null)
             code = 31*code + tag.hashCode();
         return code;

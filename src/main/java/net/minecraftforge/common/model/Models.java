@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,6 @@
 package net.minecraftforge.common.model;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.UnmodifiableIterator;
 
@@ -39,7 +38,6 @@ public enum Models
         {
             return ((HiddenModelPart) part).getPath().iterator();
         }
-        ImmutableSet<String> ret = ImmutableSet.of();
-        return ret.iterator();
+        return Iterators.emptyIterator();
     }
 }

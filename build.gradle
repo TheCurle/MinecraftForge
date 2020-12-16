@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         mavenLocal()
+        maven { url = 'https://maven.gemwire.uk' }
         maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
         mavenCentral()
@@ -12,6 +13,8 @@ buildscript {
         classpath 'com.github.jponge:lzma-java:1.3' //Needed to compress deobf data
     }
 }
+
+
 import groovy.json.JsonSlurper
 import groovy.json.JsonBuilder
 
@@ -60,9 +63,9 @@ ext {
         ]
     }
     MAPPING_CHANNEL = 'snapshot'
-    MAPPING_VERSION = '20171003-1.12'
-    MC_VERSION = '1.12.2'
-    MCP_VERSION = '20200226.224830'
+    MAPPING_VERSION = '20170612-1.11'
+    MC_VERSION = '1.11.2'
+    MCP_VERSION = '20201023.125138'
     POST_PROCESSOR = [
         tool: 'net.minecraftforge:mcpcleanup:2.3.2:fatjar',
         repo: 'https://files.minecraftforge.net/maven/',
@@ -72,6 +75,9 @@ ext {
 
 project(':mcp') {
     apply plugin: 'net.minecraftforge.gradle.mcp'
+    repositories {
+        maven { url = 'https://maven.gemwire.uk' }
+    }
     mcp {
         config = MC_VERSION + '-' + MCP_VERSION
         pipeline = 'joined'
@@ -85,6 +91,7 @@ project(':clean') {
     compileJava.sourceCompatibility = compileJava.targetCompatibility = sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
     
     repositories {
+        maven { url = 'https://maven.gemwire.uk' }
         mavenCentral()
     }
     
@@ -170,16 +177,19 @@ project(':forge') {
     eclipse.classpath.file.whenMerged { cls -> cls.entries.removeIf { e -> e instanceof SourceFolder && e.path.startsWith('src/') && !e.path.startsWith('src/main/') } }
 
     repositories {
+        maven { url = 'https://maven.gemwire.uk' }
         mavenLocal()
         mavenCentral()
     }
 
     ext {
-        LEGACY_MAJOR = 14 //Legacy versions have a API change prefix
-        LEGACY_BUILD = 2848 //Base build number to not conflict with existing build numbers
+
+        // 13.20.1.2588
+        LEGACY_MAJOR = 13 //Legacy versions have a API change prefix
+        LEGACY_BUILD = 2589 //Base build number to not conflict with existing build numbers
         BUILD_NUMBER = 0 // LEGACY_BUILD + commit offset, used to mimic unique build from old versions
         
-        SPEC_VERSION = '23.5' // This is overwritten by git tag, but here so dev time doesnt explode
+        SPEC_VERSION = '20.1' // This is overwritten by git tag, but here so dev time doesnt explode
         MCP_ARTIFACT = project(':mcp').mcp.config
         SPECIAL_SOURCE = 'net.md-5:SpecialSource:1.8.5'
         VERSION_JSON = project(':mcp').file('build/mcp/downloadJson/version.json')
@@ -212,6 +222,7 @@ project(':forge') {
         patchedSrc = file('src/main/java')
         srgPatches = true
         notchObf = true
+
         accessTransformer = file("$rootDir/src/main/resources/forge_at.cfg")
         //sideAnnotationStripper = file("$rootDir/src/main/resources/forge.sas")
         processor = POST_PROCESSOR
@@ -304,6 +315,8 @@ project(':forge') {
         installer 'net.sf.trove4j:trove4j:3.0.3'
         installer 'org.apache.maven:maven-artifact:3.5.3'
         installer 'net.sf.jopt-simple:jopt-simple:5.0.3'
+
+        implementation 'net.minecraftforge:legacydev:0.2.3.+:fatjar'
         
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.0'
         testImplementation 'org.junit.vintage:junit-vintage-engine:5.+'
@@ -930,6 +943,9 @@ def getArtifacts(project, config, classifiers) {
         def url = "https://libraries.minecraft.net/${path}"
         if (!checkExists(url)) {
             url = "https://files.minecraftforge.net/maven/${path}"
+        }
+        if (!checkExists(url)) {
+            url = "https://maven.gemwire.uk/${path}"
         }
         //TODO remove when Mojang launcher is updated
         if (!classifiers && art.classifier != null) { //Mojang launcher doesn't currently support classifiers, so... move it to part of the version, and force the extension to 'jar'

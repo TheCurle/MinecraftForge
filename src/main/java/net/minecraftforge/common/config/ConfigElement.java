@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -15,6 +15,11 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
+/**
+ * This software is provided under the terms of the Minecraft Forge Public
+ * License v1.0.
  */
 
 package net.minecraftforge.common.config;
@@ -208,12 +213,6 @@ public class ConfigElement implements IConfigElement
     }
 
     @Override
-    public String[] getValidValuesDisplay()
-    {
-        return isProperty ? prop.getValidValuesDisplay() : null;
-    }
-
-    @Override
     public String getLanguageKey()
     {
         return isProperty ? prop.getLanguageKey() : category.getLanguagekey();
@@ -366,13 +365,7 @@ public class ConfigElement implements IConfigElement
     {
         return isProperty ? prop.getMaxValue() : null;
     }
-
-
-    @Override
-    public boolean hasSlidingControl() {
-        return prop.hasSlidingControl();
-    }
-
+    
     /**
      * Provides a ConfigElement derived from the annotation-based config system
      * @param configClass the class which contains the configuration
@@ -408,8 +401,6 @@ public class ConfigElement implements IConfigElement
                 if (catName.isEmpty())
                     continue;
                 ConfigCategory category = config.getCategory(catName);
-                if (category.isChild())
-                    continue;
                 DummyCategoryElement element = new DummyCategoryElement(category.getName(), category.getLanguagekey(), new ConfigElement(category).getChildElements());
                 element.setRequiresMcRestart(category.requiresMcRestart());
                 element.setRequiresWorldRestart(category.requiresWorldRestart());

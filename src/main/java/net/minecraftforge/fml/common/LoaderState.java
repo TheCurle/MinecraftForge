@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,6 +30,8 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.event.FMLStateEvent;
+
+import com.google.common.base.Throwables;
 
 /**
  * The state enum used to help track state progression for the loader
@@ -87,9 +89,9 @@ public enum LoaderState
         {
             return eventClass.getConstructor(Object[].class).newInstance((Object)eventData);
         }
-        catch (ReflectiveOperationException e)
+        catch (Exception e)
         {
-            throw new RuntimeException(e);
+            throw Throwables.propagate(e);
         }
     }
     public LoaderState requiredState()

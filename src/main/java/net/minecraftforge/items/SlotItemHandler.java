@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -43,7 +43,7 @@ public class SlotItemHandler extends Slot
     @Override
     public boolean isItemValid(@Nonnull ItemStack stack)
     {
-        if (stack.isEmpty() || !itemHandler.isItemValid(index, stack))
+        if (stack.isEmpty())
             return false;
 
         IItemHandler handler = this.getItemHandler();
@@ -63,7 +63,7 @@ public class SlotItemHandler extends Slot
         {
             remainder = handler.insertItem(index, stack, true);
         }
-        return remainder.getCount() < stack.getCount();
+        return remainder.isEmpty() || remainder.getCount() < stack.getCount();
     }
 
     @Override

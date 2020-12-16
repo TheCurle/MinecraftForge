@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -182,7 +182,11 @@ public enum KeyModifier {
         {
             return valueOf(stringValue);
         }
-        catch (NullPointerException | IllegalArgumentException ignored)
+        catch (NullPointerException ignored)
+        {
+            return NONE;
+        }
+        catch (IllegalArgumentException ignored)
         {
             return NONE;
         }

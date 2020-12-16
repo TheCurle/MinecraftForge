@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -36,7 +36,6 @@ public enum B3DClip implements IClip
 {
     INSTANCE;
 
-    @Override
     public IJointClip apply(final IJoint joint)
     {
         if(!(joint instanceof NodeJoint))
@@ -46,10 +45,9 @@ public enum B3DClip implements IClip
         return new NodeClip(((NodeJoint)joint).getNode());
     }
 
-    @Override
     public Iterable<Event> pastEvents(float lastPollTime, float time)
     {
-        return ImmutableSet.of();
+        return ImmutableSet.<Event>of();
     }
 
     protected static class NodeClip implements IJointClip
@@ -61,7 +59,6 @@ public enum B3DClip implements IClip
             this.node = node;
         }
 
-        @Override
         public TRSRTransformation apply(float time)
         {
             TRSRTransformation ret = TRSRTransformation.identity();

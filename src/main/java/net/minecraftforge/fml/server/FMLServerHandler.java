@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,7 +16,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-
 package net.minecraftforge.fml.server;
 
 import java.io.*;
@@ -26,6 +25,7 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.network.NetworkManager;
@@ -36,6 +36,7 @@ import net.minecraft.util.IThreadListener;
 import net.minecraft.util.text.translation.LanguageMap;
 import net.minecraft.world.storage.SaveFormatOld;
 import net.minecraftforge.common.util.CompoundDataFixer;
+import net.minecraftforge.common.util.Java6Utils;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.IFMLSidedHandler;
@@ -43,8 +44,8 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.StartupQuery;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
+import net.minecraftforge.fml.common.functions.GenericIterableFactory;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
 import com.google.common.collect.ImmutableList;
@@ -189,7 +190,7 @@ public class FMLServerHandler implements IFMLSidedHandler
                 // rudimentary command processing, check for fml confirm/cancel and stop commands
                 synchronized (dedServer.pendingCommandList)
                 {
-                    for (Iterator<PendingCommand> it = dedServer.pendingCommandList.iterator(); it.hasNext(); )
+                    for (Iterator<PendingCommand> it = GenericIterableFactory.newCastingIterable(dedServer.pendingCommandList, PendingCommand.class).iterator(); it.hasNext(); )
                     {
                         String cmd = it.next().command.trim().toLowerCase();
 
@@ -243,7 +244,7 @@ public class FMLServerHandler implements IFMLSidedHandler
         ZipFile zip = null;
         try
         {
-            if (source.isDirectory() && FMLLaunchHandler.isDeobfuscatedEnvironment())
+            if (source.isDirectory() && (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
             {
                 File f = new File(source.toURI().resolve(langFile).getPath());
                 if (!f.exists())
@@ -252,7 +253,7 @@ public class FMLServerHandler implements IFMLSidedHandler
                     throw new FileNotFoundException(source.toURI().resolve(langFile).getPath());
                 stream = new FileInputStream(f);
             }
-            else if (source.exists()) //Fake sources.. Yay coremods -.-
+            else
             {
                 zip = new ZipFile(source);
                 ZipEntry entry = zip.getEntry(langFile);
@@ -260,12 +261,11 @@ public class FMLServerHandler implements IFMLSidedHandler
                 if (entry == null) throw new FileNotFoundException(langFile);
                 stream = zip.getInputStream(entry);
             }
-            if (stream != null)
-                LanguageMap.inject(stream);
+            LanguageMap.inject(stream);
         }
         catch (FileNotFoundException e)
         {
-            FMLLog.log.warn("Missing English translation for {}: {}", container.getModId(), e.getMessage());
+            FMLLog.log.warn("Missing English translation for {}: {}", container.getModId(), e.getMessage(), e);
         }
         catch (IOException e)
         {
@@ -278,7 +278,7 @@ public class FMLServerHandler implements IFMLSidedHandler
         finally
         {
             IOUtils.closeQuietly(stream);
-            IOUtils.closeQuietly(zip);
+            Java6Utils.closeZipQuietly(zip);
         }
     }
 

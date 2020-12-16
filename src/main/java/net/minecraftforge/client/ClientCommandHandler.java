@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,8 +34,6 @@ import net.minecraftforge.event.CommandEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fml.common.FMLLog;
-
 import static net.minecraft.util.text.TextFormatting.*;
 
 /**
@@ -111,7 +109,7 @@ public class ClientCommandHandler extends CommandHandler
         catch (Throwable t)
         {
             sender.sendMessage(format(RED, "commands.generic.exception"));
-            FMLLog.log.error("Command '{}' threw an exception:", message, t);
+            t.printStackTrace();
         }
 
         return -1;

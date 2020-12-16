@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,6 @@
 package net.minecraftforge.fml.common.network;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -29,13 +28,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.ForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
-import net.minecraftforge.registries.RegistryManager;
-
+import net.minecraftforge.fml.common.registry.IForgeRegistry;
+import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import net.minecraftforge.fml.common.registry.PersistentRegistryManager;
 import org.apache.commons.lang3.Validate;
+
+import com.google.common.base.Charsets;
+import com.google.common.base.Throwables;
 
 import io.netty.buffer.ByteBuf;
 
@@ -149,7 +150,7 @@ public class ByteBufUtils {
     public static String readUTF8String(ByteBuf from)
     {
         int len = readVarInt(from,2);
-        String str = from.toString(from.readerIndex(), len, StandardCharsets.UTF_8);
+        String str = from.toString(from.readerIndex(), len, Charsets.UTF_8);
         from.readerIndex(from.readerIndex() + len);
         return str;
     }
@@ -162,7 +163,7 @@ public class ByteBufUtils {
      */
     public static void writeUTF8String(ByteBuf to, String string)
     {
-        byte[] utf8Bytes = string.getBytes(StandardCharsets.UTF_8);
+        byte[] utf8Bytes = string.getBytes(Charsets.UTF_8);
         Validate.isTrue(varIntByteCount(utf8Bytes.length) < 3, "The string is too long for this encoding.");
         writeVarInt(to, utf8Bytes.length, 2);
         to.writeBytes(utf8Bytes);
@@ -192,11 +193,10 @@ public class ByteBufUtils {
         try
         {
             return pb.readItemStack();
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             // Unpossible?
-            throw new RuntimeException(e);
+            throw Throwables.propagate(e);
         }
     }
 
@@ -228,7 +228,7 @@ public class ByteBufUtils {
         } catch (IOException e)
         {
             // Unpossible?
-            throw new RuntimeException(e);
+            throw Throwables.propagate(e);
         }
     }
 
@@ -240,9 +240,9 @@ public class ByteBufUtils {
      */
     public static <T extends IForgeRegistryEntry<T>> void writeRegistryEntry(@Nonnull ByteBuf out, @Nonnull T entry)
     {
-        ForgeRegistry<T> registry = (ForgeRegistry<T>)GameRegistry.findRegistry(entry.getRegistryType());
-        writeUTF8String(out, RegistryManager.ACTIVE.getName(registry).toString());
-        writeVarInt(out, registry.getID(entry), 5);
+        FMLControlledNamespacedRegistry<T> registry = (FMLControlledNamespacedRegistry<T>)GameRegistry.findRegistry(entry.getRegistryType());
+        writeUTF8String(out, PersistentRegistryManager.getRegistryRegistryName(registry).toString());
+        writeVarInt(out, registry.getId(entry), 5);
     }
 
     /**
@@ -256,15 +256,16 @@ public class ByteBufUtils {
     {
         String registryName = readUTF8String(in);
         int id = readVarInt(in, 5);
-        ResourceLocation expectedRegistryName = RegistryManager.ACTIVE.getName(registry);
-
+        ResourceLocation expectedRegistryName = PersistentRegistryManager.getRegistryRegistryName(registry);
         if (!expectedRegistryName.toString().equals(registryName))
+        {
             throw new IllegalArgumentException("Registry mismatch: " + registryName + " != " + expectedRegistryName);
-
-        T thing = ((ForgeRegistry<T>)registry).getRaw(id);
+        }
+        T thing = ((FMLControlledNamespacedRegistry<T>)registry).getRaw(id);
         if (thing == null)
+        {
             throw new IllegalArgumentException("Unknown ID " + id + " for registry " + expectedRegistryName + " received.");
-
+        }
         return thing;
     }
 
@@ -282,15 +283,14 @@ public class ByteBufUtils {
         if (it.hasNext())
         {
             T first = it.next();
-            ForgeRegistry<T> registry = (ForgeRegistry<T>)GameRegistry.findRegistry(first.getRegistryType());
-            writeUTF8String(out, RegistryManager.ACTIVE.getName(registry).toString());
-            writeVarInt(out, registry.getID(first), 5);
-
-            while (it.hasNext())
-            {
-                int id = registry.getID(it.next());
-                if (id == -1)
+            FMLControlledNamespacedRegistry<T> registry = (FMLControlledNamespacedRegistry<T>)GameRegistry.findRegistry(first.getRegistryType());
+            writeUTF8String(out, PersistentRegistryManager.getRegistryRegistryName(registry).toString());
+            writeVarInt(out, registry.getId(first), 5);
+            while (it.hasNext()) {
+                int id = registry.getId(it.next());
+                if (id == -1) {
                     throw new IllegalArgumentException("Unregistered IForgeRegistryEntry in collection " + entries + ".");
+                }
                 writeVarInt(out, id, 5);
             }
         }
@@ -314,7 +314,7 @@ public class ByteBufUtils {
         else
         {
             String registryName = readUTF8String(in);
-            ResourceLocation expectedRegistryName = RegistryManager.ACTIVE.getName(registry);
+            ResourceLocation expectedRegistryName = PersistentRegistryManager.getRegistryRegistryName(registry);
             if (!expectedRegistryName.toString().equals(registryName))
             {
                 throw new IllegalArgumentException("Registry mismatch: " + registryName + " != " + expectedRegistryName);
@@ -324,10 +324,11 @@ public class ByteBufUtils {
             for (int i = 0; i < size; i++)
             {
                 int id = readVarInt(in, 5);
-                T thing = ((ForgeRegistry<T>)registry).getRaw(id);
+                T thing = ((FMLControlledNamespacedRegistry<T>)registry).getRaw(id);
                 if (thing == null)
+                {
                     throw new IllegalArgumentException("Unknown ID " + id + " for registry " + expectedRegistryName + " received.");
-
+                }
                 b.add(thing);
             }
             return b.build();

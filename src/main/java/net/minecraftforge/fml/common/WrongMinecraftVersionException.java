@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,13 +19,7 @@
 
 package net.minecraftforge.fml.common;
 
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraftforge.fml.client.GuiWrongMinecraft;
-import net.minecraftforge.fml.client.IDisplayableError;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-public class WrongMinecraftVersionException extends EnhancedRuntimeException implements IDisplayableError
+public class WrongMinecraftVersionException extends EnhancedRuntimeException
 {
     private static final long serialVersionUID = 1L;
     public ModContainer mod;
@@ -48,10 +42,4 @@ public class WrongMinecraftVersionException extends EnhancedRuntimeException imp
         stream.println("");
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public GuiScreen createGui()
-    {
-        return new GuiWrongMinecraft(this);
-    }
 }

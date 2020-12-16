@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 
 import com.google.common.base.Objects;
-import java.util.Optional;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 
 /*
@@ -53,12 +53,11 @@ public class MapModelState implements IModelState
         this.map = ImmutableMap.copyOf(map);
         this.def = def;
     }
-
-    @Override
+	
     public Optional<TRSRTransformation> apply(Optional<? extends IModelPart> part)
     {
         if(!part.isPresent() || !map.containsKey(part.get())) return def.apply(part);
-        return map.get(part.get()).apply(Optional.empty());
+        return map.get(part.get()).apply(Optional.<IModelPart>absent());
     }
 
     public IModelState getState(Object obj)

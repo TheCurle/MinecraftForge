@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,7 @@ import net.minecraft.client.gui.GuiErrorScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Loader;
+import org.apache.logging.log4j.Level;
 
 import java.awt.*;
 import java.io.File;
@@ -31,7 +32,7 @@ import java.io.File;
 public class GuiErrorBase extends GuiErrorScreen
 {
     static final File minecraftDir = new File(Loader.instance().getConfigDir().getParent());
-    static final File logFile = new File(minecraftDir, "logs/latest.log");
+    static final File clientLog = new File(minecraftDir, "logs/fml-client-latest.log");
     public GuiErrorBase()
     {
         super(null, null);
@@ -48,7 +49,7 @@ public class GuiErrorBase extends GuiErrorScreen
         super.initGui();
         this.buttonList.clear();
         this.buttonList.add(new GuiButton(10, 50, this.height - 38, this.width / 2 - 55, 20, translateOrDefault("fml.button.open.mods.folder", "Open Mods Folder")));
-        String openFileText = translateOrDefault("fml.button.open.file", "Open %s", logFile.getName());
+        String openFileText = translateOrDefault("fml.button.open.file", "Open %s", clientLog.getName());
         this.buttonList.add(new GuiButton(11, this.width / 2 + 5, this.height - 38, this.width / 2 - 55, 20, openFileText));
     }
 
@@ -71,11 +72,11 @@ public class GuiErrorBase extends GuiErrorScreen
         {
             try
             {
-                Desktop.getDesktop().open(logFile);
+                Desktop.getDesktop().open(clientLog);
             }
             catch (Exception e)
             {
-                FMLLog.log.error("Problem opening log file {}", logFile, e);
+                FMLLog.log.error("Problem opening log file {}", clientLog, e);
             }
         }
     }
@@ -85,7 +86,7 @@ public class GuiErrorBase extends GuiErrorScreen
     {
         for(GuiButton button : buttonList)
         {
-            button.drawButton(this.mc, mouseX, mouseY, partialTicks);
+            button.drawButton(this.mc, mouseX, mouseY);
         }
     }
 }

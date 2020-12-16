@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,11 +20,10 @@
 package net.minecraftforge.client.event;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.common.eventhandler.IContextSetter;
 
 /**
  * Fired when the {@link net.minecraftforge.client.model.ModelLoader} is ready to receive registrations
  */
-public class ModelRegistryEvent extends Event implements IContextSetter
+public class ModelRegistryEvent extends Event
 {
 }

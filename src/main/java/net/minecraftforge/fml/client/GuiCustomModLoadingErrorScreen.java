@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,24 +19,27 @@
 
 package net.minecraftforge.fml.client;
 
-public class GuiCustomModLoadingErrorScreen extends GuiErrorBase
+import net.minecraft.client.gui.GuiErrorScreen;
+
+public class GuiCustomModLoadingErrorScreen extends GuiErrorScreen
 {
     private CustomModLoadingErrorDisplayException customException;
     public GuiCustomModLoadingErrorScreen(CustomModLoadingErrorDisplayException customException)
     {
+        super(null,null);
         this.customException = customException;
     }
     @Override
     public void initGui()
     {
         super.initGui();
-        this.customException.initGui(this, fontRenderer);
+        this.buttonList.clear();
+        this.customException.initGui(this, fontRendererObj);
     }
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         this.drawDefaultBackground();
-        super.drawScreen(mouseX, mouseY, partialTicks);
-        this.customException.drawScreen(this, fontRenderer, mouseX, mouseY, partialTicks);
+        this.customException.drawScreen(this, fontRendererObj, mouseX, mouseY, partialTicks);
     }
 }

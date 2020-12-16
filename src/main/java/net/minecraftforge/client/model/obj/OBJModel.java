@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,6 @@ package net.minecraftforge.client.model.obj;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,6 +34,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
+import javax.vecmath.Matrix3f;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3f;
@@ -43,6 +43,7 @@ import javax.vecmath.Vector4f;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -63,11 +64,12 @@ import net.minecraftforge.common.property.Properties;
 import net.minecraftforge.fml.common.FMLLog;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.core.helpers.Strings;
 
-import java.util.function.Function;
+import com.google.common.base.Charsets;
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
-import java.util.Optional;
-import com.google.common.base.Strings;
+import com.google.common.base.Optional;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -76,7 +78,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class OBJModel implements IModel
+public class OBJModel implements IRetexturableModel, IModelCustomData
 {
     //private Gson GSON = new GsonBuilder().create();
     private MaterialLibrary matLib;
@@ -93,6 +95,12 @@ public class OBJModel implements IModel
         this.matLib = matLib;
         this.modelLocation = modelLocation;
         this.customData = customData;
+    }
+
+    @Override
+    public Collection<ResourceLocation> getDependencies()
+    {
+        return Collections.emptyList();
     }
 
     @Override
@@ -204,7 +212,7 @@ public class OBJModel implements IModel
         {
             this.manager = manager;
             this.objFrom = from.getResourceLocation();
-            this.objStream = new InputStreamReader(from.getInputStream(), StandardCharsets.UTF_8);
+            this.objStream = new InputStreamReader(from.getInputStream(), Charsets.UTF_8);
             this.objReader = new BufferedReader(objStream);
         }
 
@@ -224,6 +232,7 @@ public class OBJModel implements IModel
         //Partial reading of the OBJ format. Documentation taken from http://paulbourke.net/dataformats/obj/
         public OBJModel parse() throws IOException
         {
+            String currentLine = "";
             Material material = new Material();
             material.setName(Material.DEFAULT_NAME);
             int usemtlCounter = 0;
@@ -232,9 +241,9 @@ public class OBJModel implements IModel
             for (;;)
             {
                 lineNum++;
-                String currentLine = objReader.readLine();
+                currentLine = objReader.readLine();
                 if (currentLine == null) break;
-                currentLine = currentLine.trim();
+                currentLine.trim();
                 if (currentLine.isEmpty() || currentLine.startsWith("#")) continue;
 
                 try
@@ -250,14 +259,7 @@ public class OBJModel implements IModel
                     }
                     else if (key.equalsIgnoreCase("usemtl"))
                     {
-                        if (this.materialLibrary.materials.containsKey(data))
-                        {
-                            material = this.materialLibrary.materials.get(data);
-                        }
-                        else
-                        {
-                            FMLLog.log.error("OBJModel.Parser: (Model: '{}', Line: {}) material '{}' referenced but was not found", objFrom, lineNum, data);
-                        }
+                        material = this.materialLibrary.materials.get(data);
                         usemtlCounter++;
                     }
                     else if (key.equalsIgnoreCase("v")) // Vertices: x y z [w] - w Defaults to 1.0
@@ -292,8 +294,8 @@ public class OBJModel implements IModel
                             String[] pts = splitData[i].split("/");
 
                             int vert = Integer.parseInt(pts[0]);
-                            Integer texture = pts.length < 2 || Strings.isNullOrEmpty(pts[1]) ? null : Integer.parseInt(pts[1]);
-                            Integer normal = pts.length < 3 || Strings.isNullOrEmpty(pts[2]) ? null : Integer.parseInt(pts[2]);
+                            Integer texture = pts.length < 2 || Strings.isEmpty(pts[1]) ? null : Integer.parseInt(pts[1]);
+                            Integer normal = pts.length < 3 || Strings.isEmpty(pts[2]) ? null : Integer.parseInt(pts[2]);
 
                             vert = vert < 0 ? this.vertices.size() - 1 : vert - 1;
                             Vertex newV = new Vertex(new Vector4f(this.vertices.get(vert).getPos()), this.vertices.get(vert).getMaterial());
@@ -386,6 +388,8 @@ public class OBJModel implements IModel
         private Set<String> unknownMaterialCommands = new HashSet<String>();
         private Map<String, Material> materials = new HashMap<String, Material>();
         private Map<String, Group> groups = new HashMap<String, Group>();
+        private InputStreamReader mtlStream;
+        private BufferedReader mtlReader;
 
 //        private float[] minUVBounds = new float[] {0.0f, 0.0f};
 //        private float[] maxUVBounds = new float[] {1.0f, 1.0f};
@@ -433,6 +437,8 @@ public class OBJModel implements IModel
             ret.unknownMaterialCommands = this.unknownMaterialCommands;
             ret.materials = mats;
             ret.groups = this.groups;
+            ret.mtlStream = this.mtlStream;
+            ret.mtlReader = this.mtlReader;
 //            ret.minUVBounds = this.minUVBounds;
 //            ret.maxUVBounds = this.maxUVBounds;
             return ret;
@@ -474,10 +480,10 @@ public class OBJModel implements IModel
         public void changeMaterialColor(String name, int color)
         {
             Vector4f colorVec = new Vector4f();
-            colorVec.w = (color >> 24 & 255) / 255f;
-            colorVec.x = (color >> 16 & 255) / 255f;
-            colorVec.y = (color >> 8 & 255) / 255f;
-            colorVec.z = (color & 255) / 255f;
+            colorVec.w = (color >> 24 & 255) / 255;
+            colorVec.x = (color >> 16 & 255) / 255;
+            colorVec.y = (color >> 8 & 255) / 255;
+            colorVec.z = (color & 255) / 255;
             this.materials.get(name).setColor(colorVec);
         }
 
@@ -499,86 +505,87 @@ public class OBJModel implements IModel
             String domain = from.getResourceDomain();
             if (!path.contains("/"))
                 path = from.getResourcePath().substring(0, from.getResourcePath().lastIndexOf("/") + 1) + path;
+            mtlStream = new InputStreamReader(manager.getResource(new ResourceLocation(domain, path)).getInputStream(), Charsets.UTF_8);
+            mtlReader = new BufferedReader(mtlStream);
 
-            ResourceLocation mtlLocation = new ResourceLocation(domain, path);
-            try (IResource resource = manager.getResource(mtlLocation))
+            String currentLine = "";
+            Material material = new Material();
+            material.setName(Material.WHITE_NAME);
+            material.setTexture(Texture.WHITE);
+            this.materials.put(Material.WHITE_NAME, material);
+            this.materials.put(Material.DEFAULT_NAME, new Material(Texture.WHITE));
+
+            for (;;)
             {
-                BufferedReader mtlReader = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8));
+                currentLine = mtlReader.readLine();
+                if (currentLine == null) break;
+                currentLine.trim();
+                if (currentLine.isEmpty() || currentLine.startsWith("#")) continue;
 
-                Material material = new Material();
-                material.setName(Material.WHITE_NAME);
-                material.setTexture(Texture.WHITE);
-                this.materials.put(Material.WHITE_NAME, material);
-                this.materials.put(Material.DEFAULT_NAME, new Material(Texture.WHITE));
+                String[] fields = WHITE_SPACE.split(currentLine, 2);
+                String key = fields[0];
+                String data = fields[1];
 
-                for (;;)
+                if (key.equalsIgnoreCase("newmtl"))
                 {
-                    String currentLine = mtlReader.readLine();
-                    if (currentLine == null) break;
-                    currentLine = currentLine.trim();
-                    if (currentLine.isEmpty() || currentLine.startsWith("#")) continue;
-
-                    String[] fields = WHITE_SPACE.split(currentLine, 2);
-                    String key = fields[0];
-                    String data = fields[1];
-
-                    if (key.equalsIgnoreCase("newmtl"))
+                    hasSetColor = false;
+                    hasSetTexture = false;
+                    material = new Material();
+                    material.setName(data);
+                    this.materials.put(data, material);
+                }
+                else if (key.equalsIgnoreCase("Ka") || key.equalsIgnoreCase("Kd") || key.equalsIgnoreCase("Ks"))
+                {
+                    if (key.equalsIgnoreCase("Kd") || !hasSetColor)
                     {
-                        hasSetColor = false;
-                        hasSetTexture = false;
-                        material = new Material();
-                        material.setName(data);
-                        this.materials.put(data, material);
+                        String[] rgbStrings = WHITE_SPACE.split(data, 3);
+                        Vector4f color = new Vector4f(Float.parseFloat(rgbStrings[0]), Float.parseFloat(rgbStrings[1]), Float.parseFloat(rgbStrings[2]), 1.0f);
+                        hasSetColor = true;
+                        material.setColor(color);
                     }
-                    else if (key.equalsIgnoreCase("Ka") || key.equalsIgnoreCase("Kd") || key.equalsIgnoreCase("Ks"))
+                    else
                     {
-                        if (key.equalsIgnoreCase("Kd") || !hasSetColor)
+                        FMLLog.log.info("OBJModel: A color has already been defined for material '{}' in '{}'. The color defined by key '{}' will not be applied!", material.getName(), new ResourceLocation(domain, path).toString(), key);
+                    }
+                }
+                else if (key.equalsIgnoreCase("map_Ka") || key.equalsIgnoreCase("map_Kd") || key.equalsIgnoreCase("map_Ks"))
+                {
+                    if (key.equalsIgnoreCase("map_Kd") || !hasSetTexture)
+                    {
+                        if (data.contains(" "))
                         {
-                            String[] rgbStrings = WHITE_SPACE.split(data, 3);
-                            Vector4f color = new Vector4f(Float.parseFloat(rgbStrings[0]), Float.parseFloat(rgbStrings[1]), Float.parseFloat(rgbStrings[2]), 1.0f);
-                            hasSetColor = true;
-                            material.setColor(color);
+                            String[] mapStrings = WHITE_SPACE.split(data);
+                            String texturePath = mapStrings[mapStrings.length - 1];
+                            Texture texture = new Texture(texturePath);
+                            hasSetTexture = true;
+                            material.setTexture(texture);
                         }
                         else
                         {
-                            FMLLog.log.info("OBJModel: A color has already been defined for material '{}' in '{}'. The color defined by key '{}' will not be applied!", material.getName(), mtlLocation, key);
+                            Texture texture = new Texture(data);
+                            hasSetTexture = true;
+                            material.setTexture(texture);
                         }
                     }
-                    else if (key.equalsIgnoreCase("map_Ka") || key.equalsIgnoreCase("map_Kd") || key.equalsIgnoreCase("map_Ks"))
+                    else
                     {
-                        if (key.equalsIgnoreCase("map_Kd") || !hasSetTexture)
-                        {
-                            if (data.contains(" "))
-                            {
-                                String[] mapStrings = WHITE_SPACE.split(data);
-                                String texturePath = mapStrings[mapStrings.length - 1];
-                                Texture texture = new Texture(texturePath);
-                                hasSetTexture = true;
-                                material.setTexture(texture);
-                            }
-                            else
-                            {
-                                Texture texture = new Texture(data);
-                                hasSetTexture = true;
-                                material.setTexture(texture);
-                            }
-                        }
-                        else
-                        {
-                            FMLLog.log.info("OBJModel: A texture has already been defined for material '{}' in '{}'. The texture defined by key '{}' will not be applied!", material.getName(), mtlLocation, key);
-                        }
+                        FMLLog.log.info("OBJModel: A texture has already been defined for material '{}' in '{}'. The texture defined by key '{}' will not be applied!", material.getName(), new ResourceLocation(domain, path).toString(), key);
                     }
-                    else if (key.equalsIgnoreCase("d") || key.equalsIgnoreCase("Tr"))
+                }
+                else if (key.equalsIgnoreCase("d") || key.equalsIgnoreCase("Tr"))
+                {
+                    //d <-optional key here> float[0.0:1.0, 1.0]
+                    //Tr r g b OR Tr spectral map file OR Tr xyz r g b (CIEXYZ colorspace)
+                    String[] splitData = WHITE_SPACE.split(data);
+                    float alpha = Float.parseFloat(splitData[splitData.length - 1]);
+                    material.getColor().setW(alpha);
+                }
+                else
+                {
+                    if (!unknownMaterialCommands.contains(key))
                     {
-                        //d <-optional key here> float[0.0:1.0, 1.0]
-                        //Tr r g b OR Tr spectral map file OR Tr xyz r g b (CIEXYZ colorspace)
-                        String[] splitData = WHITE_SPACE.split(data);
-                        float alpha = Float.parseFloat(splitData[splitData.length - 1]);
-                        material.getColor().setW(alpha);
-                    }
-                    else if (unknownMaterialCommands.add(key))
-                    {
-                        FMLLog.log.info("OBJLoader.MaterialLibrary: key '{}' (model: '{}') is not currently supported, skipping", key, mtlLocation);
+                        unknownMaterialCommands.add(key);
+                        FMLLog.log.info("OBJLoader.MaterialLibrary: key '{}' (model: '{}') is not currently supported, skipping", key, new ResourceLocation(domain, path));
                     }
                 }
             }
@@ -838,6 +845,8 @@ public class OBJModel implements IModel
 
         public Face bake(TRSRTransformation transform)
         {
+            Matrix4f m = transform.getMatrix();
+            Matrix3f mn = null;
             Vertex[] vertices = new Vertex[verts.length];
 //            Normal[] normals = norms != null ? new Normal[norms.length] : null;
 //            TextureCoordinate[] textureCoords = texCoords != null ? new TextureCoordinate[texCoords.length] : null;
@@ -848,16 +857,24 @@ public class OBJModel implements IModel
 //                Normal n = norms != null ? norms[i] : null;
 //                TextureCoordinate t = texCoords != null ? texCoords[i] : null;
 
-                Vector4f pos = new Vector4f(v.getPos());
+                Vector4f pos = new Vector4f(v.getPos()), newPos = new Vector4f();
                 pos.w = 1;
-                transform.transformPosition(pos);
-                vertices[i] = new Vertex(pos, v.getMaterial());
+                m.transform(pos, newPos);
+                vertices[i] = new Vertex(newPos, v.getMaterial());
 
                 if (v.hasNormal())
                 {
-                    Vector3f normal = new Vector3f(v.getNormal().getData());
-                    transform.transformNormal(normal);
-                    vertices[i].setNormal(new Normal(normal));
+                    if(mn == null)
+                    {
+                        mn = new Matrix3f();
+                        m.getRotationScale(mn);
+                        mn.invert();
+                        mn.transpose();
+                    }
+                    Vector3f normal = new Vector3f(v.getNormal().getData()), newNormal = new Vector3f();
+                    mn.transform(normal, newNormal);
+                    newNormal.normalize();
+                    vertices[i].setNormal(new Normal(newNormal));
                 }
 
                 if (v.hasTextureCoordinate()) vertices[i].setTextureCoordinate(v.getTextureCoordinate());
@@ -1064,7 +1081,7 @@ public class OBJModel implements IModel
             for (Face f : this.faces)
             {
 //                if (minUVBounds != null && maxUVBounds != null) f.normalizeUVs(minUVBounds, maxUVBounds);
-                faceSet.add(f.bake(transform.orElse(TRSRTransformation.identity())));
+                faceSet.add(f.bake(transform.or(TRSRTransformation.identity())));
             }
             return faceSet;
         }
@@ -1121,11 +1138,10 @@ public class OBJModel implements IModel
             return parent;
         }
 
-        @Override
         public Optional<TRSRTransformation> apply(Optional<? extends IModelPart> part)
         {
             if (parent != null) return parent.apply(part);
-            return Optional.empty();
+            return Optional.absent();
         }
 
         public Map<String, Boolean> getVisibilityMap()
@@ -1240,7 +1256,6 @@ public class OBJModel implements IModel
     public enum OBJProperty implements IUnlistedProperty<OBJState>
     {
         INSTANCE;
-        @Override
         public String getName()
         {
             return "OBJProperty";
@@ -1265,7 +1280,7 @@ public class OBJModel implements IModel
         }
     }
 
-    public class OBJBakedModel implements IBakedModel
+    public class OBJBakedModel implements IPerspectiveAwareModel
     {
         private final OBJModel model;
         private IModelState state;
@@ -1318,7 +1333,7 @@ public class OBJModel implements IModel
             List<BakedQuad> quads = Lists.newArrayList();
             Collections.synchronizedSet(new LinkedHashSet<BakedQuad>());
             Set<Face> faces = Collections.synchronizedSet(new LinkedHashSet<Face>());
-            Optional<TRSRTransformation> transform = Optional.empty();
+            Optional<TRSRTransformation> transform = Optional.absent();
             for (Group g : this.model.getMatLib().getGroups().values())
             {
 //                g.minUVBounds = this.model.getMatLib().minUVBounds;
@@ -1334,7 +1349,7 @@ public class OBJModel implements IModel
                     OBJState state = (OBJState) modelState;
                     if (state.parent != null)
                     {
-                        transform = state.parent.apply(Optional.empty());
+                        transform = state.parent.apply(Optional.<IModelPart>absent());
                     }
                     //TODO: can this be replaced by updateStateVisibilityMap(OBJState)?
                     if (state.getGroupNamesFromMap().contains(Group.ALL))
@@ -1371,7 +1386,7 @@ public class OBJModel implements IModel
                 }
                 else
                 {
-                    transform = modelState.apply(Optional.empty());
+                    transform = modelState.apply(Optional.<IModelPart>absent());
                     faces.addAll(g.applyTransform(transform));
                 }
             }
@@ -1470,6 +1485,12 @@ public class OBJModel implements IModel
             return this.sprite;
         }
 
+        @Override
+        public ItemCameraTransforms getItemCameraTransforms()
+        {
+            return ItemCameraTransforms.DEFAULT;
+        }
+
         // FIXME: merge with getQuads
         /* @Override
         public OBJBakedModel handleBlockState(IBlockState state)
@@ -1527,7 +1548,6 @@ public class OBJModel implements IModel
 
         private final LoadingCache<IModelState, OBJBakedModel> cache = CacheBuilder.newBuilder().maximumSize(20).build(new CacheLoader<IModelState, OBJBakedModel>()
         {
-            @Override
             public OBJBakedModel load(IModelState state) throws Exception
             {
                 return new OBJBakedModel(model, state, format, textures);
@@ -1557,7 +1577,7 @@ public class OBJModel implements IModel
         @Override
         public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType)
         {
-            return PerspectiveMapWrapper.handlePerspective(this, state, cameraTransformType);
+            return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, state, cameraTransformType);
         }
 
         @Override
@@ -1583,5 +1603,11 @@ public class OBJModel implements IModel
             super(String.format("Model '%s' has UVs ('vt') out of bounds 0-1! The missing model will be used instead. Support for UV processing will be added to the OBJ loader in the future.", modelLocation));
             this.modelLocation = modelLocation;
         }
+    }
+
+    @Override
+    public IModelState getDefaultState()
+    {
+        return TRSRTransformation.identity();
     }
 }
