@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.0.191'
         classpath 'org.ow2.asm:asm:7.1'
         classpath 'org.ow2.asm:asm-tree:7.1'
         classpath 'com.github.jponge:lzma-java:1.3' //Needed to compress deobf data
@@ -65,7 +65,7 @@ ext {
     MAPPING_CHANNEL = 'snapshot'
     MAPPING_VERSION = '20170612-1.11'
     MC_VERSION = '1.11.2'
-    MCP_VERSION = '20201023.125138'
+    MCP_VERSION = '20201212.121212'
     POST_PROCESSOR = [
         tool: 'net.minecraftforge:mcpcleanup:2.3.2:fatjar',
         repo: 'https://files.minecraftforge.net/maven/',
