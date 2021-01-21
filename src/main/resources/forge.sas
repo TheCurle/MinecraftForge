@@ -97,6 +97,7 @@ net/minecraft/util/math/vector/Vector3d func_216371_e()Lnet/minecraft/util/math/
 net/minecraft/util/math/vector/Vector3d func_189984_a(Lnet/minecraft/util/math/vector/Vector2f;)Lnet/minecraft/util/math/vector/Vector3d; # fromPitchYaw
 net/minecraft/util/math/vector/Vector3d func_189986_a(FF)Lnet/minecraft/util/math/vector/Vector3d; # fromPitchYaw
 net/minecraft/util/math/vector/Vector4f # Vector 4f Class
+net/minecraft/client/renderer/model/ModelResourceLocation # ModelResourceLocation class
 net/minecraft/util/text/Style func_240719_a_(Lnet/minecraft/util/ResourceLocation;)Lnet/minecraft/util/text/Style; #setFontId
 net/minecraft/util/text/Style func_240723_c_(Lnet/minecraft/util/text/TextFormatting;)Lnet/minecraft/util/text/Style; #forceFormatting
 # BiomeAmbiance getters, needed for it to be useful during BiomeLoadingEvent to be useful
