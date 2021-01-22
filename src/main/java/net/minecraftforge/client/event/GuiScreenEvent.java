@@ -19,7 +19,6 @@
 
 package net.minecraftforge.client.event;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -30,7 +29,6 @@ import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.InputMappings;
 

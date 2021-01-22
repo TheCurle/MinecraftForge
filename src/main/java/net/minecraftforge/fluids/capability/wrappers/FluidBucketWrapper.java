@@ -25,7 +25,6 @@ import javax.annotation.Nullable;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;

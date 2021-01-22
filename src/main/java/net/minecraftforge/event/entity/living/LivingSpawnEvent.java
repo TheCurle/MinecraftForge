@@ -29,8 +29,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-import net.minecraftforge.eventbus.api.Event.HasResult;
-
 /**
  * LivingSpawnEvent is fired for any events associated with Living Entities spawn status. <br>
  * If a method utilizes this {@link Event} as its parameter, the method will
@@ -115,7 +113,7 @@ public class LivingSpawnEvent extends LivingEvent
 
     /**
      * SpecialSpawn is fired when an Entity is to be spawned.<br>
-     * This allows you to do special inializers in the new entity.<br>
+     * This allows you to do special initializers in the new entity.<br>
      * <br>
      * This event is fired via the {@link ForgeEventFactory#doSpecialSpawn(EntityLiving, World, float, float, float)}.<br>
      * <br>
@@ -134,7 +132,7 @@ public class LivingSpawnEvent extends LivingEvent
         private final SpawnReason spawnReason;
 
         /**
-         * @param spawner the position of a tileentity or approximate position of an entity that initiated the spawn if any
+         * @param spawner the position of a TileEntity or approximate position of an entity that initiated the spawn if any
          */
         public SpecialSpawn(MobEntity entity, World world, double x, double y, double z, @Nullable AbstractSpawner spawner, SpawnReason spawnReason)
         {

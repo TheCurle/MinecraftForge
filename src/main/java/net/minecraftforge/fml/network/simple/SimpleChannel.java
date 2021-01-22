@@ -24,7 +24,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.network.*;
 import org.apache.commons.lang3.tuple.Pair;
 

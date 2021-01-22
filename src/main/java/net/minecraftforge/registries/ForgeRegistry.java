@@ -369,7 +369,7 @@ public class ForgeRegistry<V extends IForgeRegistryEntry<V>> implements IForgeRe
         if (defaultKey != null && defaultKey.equals(key))
         {
             if (this.defaultValue != null)
-                throw new IllegalStateException(String.format("Attemped to override already set default value. This is not allowed: The object %s (name %s)", value, key));
+                throw new IllegalStateException(String.format("Attempted to override already set default value. This is not allowed: The object %s (name %s)", value, key));
             this.defaultValue = value;
         }
 
@@ -1025,7 +1025,7 @@ public class ForgeRegistry<V extends IForgeRegistryEntry<V>> implements IForgeRe
                 LOGGER.debug(REGISTRIES,"  Remapping {} -> {}.", remap.key, newName);
 
                 missing.remove(remap.key);
-                //I don't think this will work, but I dont think it ever worked.. the item is already in the map with a different id... we want to fix that..
+                // todo: I don't think this will work, but I don't think it ever worked.. the item is already in the map with a different id... we want to fix that..
                 int realId = this.add(remap.id, remap.getTarget());
                 if (realId != remap.id)
                     LOGGER.warn(REGISTRIES,"Registered object did not get ID it asked for. Name: {} Type: {} Expected: {} Got: {}", newName, this.getRegistrySuperType(), remap.id, realId);

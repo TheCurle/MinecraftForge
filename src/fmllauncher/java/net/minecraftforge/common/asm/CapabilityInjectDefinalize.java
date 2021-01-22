@@ -19,7 +19,6 @@
 
 package net.minecraftforge.common.asm;
 
-import java.nio.file.Path;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;

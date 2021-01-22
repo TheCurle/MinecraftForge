@@ -195,7 +195,7 @@ public class FMLHandshakeHandler {
         LOGGER.debug(FMLHSMARKER, "Received client indexed reply {} of type {}", message.getAsInt(), message.getClass().getName());
         boolean removed = this.sentMessages.removeIf(i-> i == message.getAsInt());
         if (!removed) {
-            LOGGER.error(FMLHSMARKER, "Recieved unexpected index {} in client reply", message.getAsInt());
+            LOGGER.error(FMLHSMARKER, "Received unexpected index {} in client reply", message.getAsInt());
         }
     }
 

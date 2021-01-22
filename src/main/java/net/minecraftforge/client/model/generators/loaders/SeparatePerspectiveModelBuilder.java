@@ -23,7 +23,6 @@ import com.google.common.base.Preconditions;
 import com.google.gson.JsonObject;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.MultiLayerModel;
 import net.minecraftforge.client.model.SeparatePerspectiveModel;
 import net.minecraftforge.client.model.generators.CustomLoaderBuilder;
 import net.minecraftforge.client.model.generators.ModelBuilder;

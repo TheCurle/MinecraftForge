@@ -549,7 +549,7 @@ public class GuiUtils
 
             mStack.push();
             Matrix4f mat = mStack.getLast().getMatrix();
-            //TODO, lots of unnessesary GL calls here, we can buffer all these together.
+            //TODO, lots of unnecessary GL calls here, we can buffer all these together.
             drawGradientRect(mat, zLevel, tooltipX - 3, tooltipY - 4, tooltipX + tooltipTextWidth + 3, tooltipY - 3, backgroundColor, backgroundColor);
             drawGradientRect(mat, zLevel, tooltipX - 3, tooltipY + tooltipHeight + 3, tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 4, backgroundColor, backgroundColor);
             drawGradientRect(mat, zLevel, tooltipX - 3, tooltipY - 3, tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 3, backgroundColor, backgroundColor);

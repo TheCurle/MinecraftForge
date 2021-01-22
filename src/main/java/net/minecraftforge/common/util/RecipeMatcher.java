@@ -80,7 +80,7 @@ public class RecipeMatcher
         if (data.nextClearBit(0) >= elements) //All items have been used, which means all tests have a match!
             return ret;
 
-        // We should be in a state where multiple tests are satified by multiple inputs. So we need to try a branching recursive test.
+        // We should be in a state where multiple tests are satisfied by multiple inputs. So we need to try a branching recursive test.
         // However for performance reasons, we should probably make that check a sub-set of the entire graph.
         if (backtrack(data, ret, 0, elements))
             return ret;

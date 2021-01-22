@@ -154,7 +154,7 @@ public class BiomeManager
 
     public static enum BiomeType
     {
-        DESERT, DESERT_LEGACY, WARM, COOL, ICY;
+        DESERT, DESERT_LEGACY, WARM, COOL, ICY
     }
 
     public static class BiomeEntry extends WeightedRandom.Item

@@ -74,7 +74,6 @@ import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.world.ForgeWorldType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
-import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.ModLoadingStage;
 import net.minecraftforge.fml.common.EnhancedRuntimeException;
@@ -93,7 +92,6 @@ import java.lang.reflect.Field;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -108,7 +106,7 @@ import static net.minecraftforge.registries.ForgeRegistries.Keys.*;
 public class GameData
 {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final int MAX_VARINT = Integer.MAX_VALUE - 1; //We were told it is their intention to have everything in a reg be unlimited, so assume that until we find cases where it isnt.
+    private static final int MAX_VARINT = Integer.MAX_VALUE - 1; //We were told it is their intention to have everything in a reg be unlimited, so assume that until we find cases where it isn't.
 
     private static final ResourceLocation BLOCK_TO_ITEM = new ResourceLocation("minecraft:blocktoitemmap");
     private static final ResourceLocation BLOCKSTATE_TO_ID = new ResourceLocation("minecraft:blockstatetoid");
@@ -885,7 +883,7 @@ public class GameData
     {
         ForgeRegistry<T> active  = pool.getRegistry(name);
         if (active == null)
-            return; // We've already asked the user if they wish to continue. So if the reg isnt found just assume the user knows and accepted it.
+            return; // We've already asked the user if they wish to continue. So if the reg isn't found just assume the user knows and accepted it.
         ForgeRegistry<T> _new = to.getRegistry(name, RegistryManager.ACTIVE);
         snap.aliases.forEach(_new::addAlias);
         snap.blocked.forEach(_new::block);

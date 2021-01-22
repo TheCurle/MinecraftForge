@@ -25,7 +25,6 @@ import javax.annotation.Nullable;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.InputMappings;
 
 import net.minecraft.util.text.ITextComponent;

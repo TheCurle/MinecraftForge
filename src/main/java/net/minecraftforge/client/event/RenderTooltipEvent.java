@@ -30,7 +30,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextProperties;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.Cancelable;
-import net.minecraftforge.eventbus.api.Event;
 
 /**
  * A set of events which are fired at various points during tooltip rendering.

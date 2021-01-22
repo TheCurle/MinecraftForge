@@ -62,7 +62,7 @@ public class ExtendedButton extends Button
             int ellipsisWidth = mc.fontRenderer.getStringWidth("...");
 
             if (strWidth > width - 6 && strWidth > ellipsisWidth)
-                //TODO, srg names make it hard to figure out how to append to an ITextProperties from this trim operation, wraping this in StringTextComponent is kinda dirty.
+                //TODO, srg names make it hard to figure out how to append to an ITextProperties from this trim operation, wrapping this in StringTextComponent is kinda dirty.
                 buttonText = new StringTextComponent(mc.fontRenderer.func_238417_a_(buttonText, width - 6 - ellipsisWidth).getString() + "...");
 
             drawCenteredString(mStack, mc.fontRenderer, buttonText, this.x + this.width / 2, this.y + (this.height - 8) / 2, getFGColor());

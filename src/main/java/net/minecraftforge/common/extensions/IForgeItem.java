@@ -261,7 +261,7 @@ public interface IForgeItem
 
     /**
      * Retrieves the normal 'lifespan' of this item when it is dropped on the ground
-     * as a EntityItem. This is in ticks, standard result is 6000, or 5 mins.
+     * as a EntityItem. This is in ticks, standard result is 6000, or 5 minutes.
      *
      * @param itemStack The current ItemStack
      * @param world     The world the entity is in
@@ -720,7 +720,7 @@ public interface IForgeItem
         return null;
     }
 
-    //TODO, properties dont exist anymore
+    //TODO, properties don't exist anymore
 //    default ImmutableMap<String, ITimeValue> getAnimationParameters(final ItemStack stack, final World world, final LivingEntity entity)
 //    {
 //        com.google.common.collect.ImmutableMap.Builder<String, ITimeValue> builder = ImmutableMap.builder();
@@ -735,7 +735,7 @@ public interface IForgeItem
      * @param shield   The shield in question
      * @param entity   The EntityLivingBase holding the shield
      * @param attacker The EntityLivingBase holding the ItemStack
-     * @retrun True if this ItemStack can disable the shield in question.
+     * @return True if this ItemStack can disable the shield in question.
      */
     default boolean canDisableShield(ItemStack stack, ItemStack shield, LivingEntity entity, LivingEntity attacker)
     {

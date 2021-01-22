@@ -22,7 +22,6 @@ package net.minecraftforge.fml.config;
 import com.electronwill.nightconfig.core.CommentedConfig;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.toml.TomlFormat;
-import it.unimi.dsi.fastutil.bytes.Byte2ByteOpenCustomHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.network.FMLHandshakeMessages;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -46,8 +45,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
-import static cpw.mods.modlauncher.api.LamdbaExceptionUtils.rethrowFunction;
 
 public class ConfigTracker {
     private static final Logger LOGGER = LogManager.getLogger();

@@ -62,7 +62,7 @@ public class ItemFishedEvent extends PlayerEvent
     /**
      * Specifies the amount of damage that the fishing rod should take.
      * This is not added to the pre-existing damage to be taken.
-     * @param rodDamage The damage the rod will take. Must be nonnegative
+     * @param rodDamage The damage the rod will take. Must be non-negative
      */
     public void damageRodBy(@Nonnegative int rodDamage)
     {
@@ -81,7 +81,7 @@ public class ItemFishedEvent extends PlayerEvent
     }
 
     /**
-     * Use this to stuff related to the hook itself, like the position of the bobber.
+     * Use this to get stuff related to the hook itself, like the position of the bobber.
      */
     public FishingBobberEntity getHookEntity()
     {

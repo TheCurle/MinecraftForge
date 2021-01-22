@@ -30,7 +30,7 @@ import net.minecraftforge.common.DimensionManager.SavedEntry;
 import net.minecraftforge.eventbus.api.Event;
 
 /**
- * Register all of your custom ModDimensons here, fired during server loading when
+ * Register all of your custom ModDimensions here, fired during server loading when
  * dimension data is read from the world file.
  *
  * Contains a list of missing entries. Registering an entry with the DimensionManger

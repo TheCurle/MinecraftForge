@@ -31,7 +31,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import cpw.mods.modlauncher.Environment;
 import net.minecraft.util.text.*;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.apache.commons.lang3.tuple.Pair;
@@ -118,7 +117,7 @@ public class ModListScreen extends Screen
     private SortType sortType = SortType.NORMAL;
 
     /**
-     * @param parentScreen
+     * @param parentScreen the parent display screen.
      */
     public ModListScreen(Screen parentScreen)
     {

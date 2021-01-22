@@ -84,7 +84,7 @@ public enum DefaultPermissionHandler implements IPermissionHandler
     }
 
     /**
-     * @return The default permission level of a node. If the permission isn't registred, it will return NONE
+     * @return The default permission level of a node. If the permission isn't registered, it will return NONE
      */
     public DefaultPermissionLevel getDefaultPermissionLevel(String node)
     {

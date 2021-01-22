@@ -41,7 +41,7 @@ import javax.annotation.Nonnull;
 @Deprecated
 public class UseHoeEvent extends PlayerEvent
 {
-    private final ItemUseContext context;;
+    private final ItemUseContext context;
 
     public UseHoeEvent(ItemUseContext context)
     {

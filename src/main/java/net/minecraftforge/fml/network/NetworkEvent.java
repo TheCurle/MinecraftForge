@@ -130,7 +130,7 @@ public class NetworkEvent extends Event
     }
 
     public enum RegistrationChangeType {
-        REGISTER, UNREGISTER;
+        REGISTER, UNREGISTER
     }
 
     /**

@@ -74,7 +74,7 @@ public class CriticalHitEvent extends PlayerEvent
 
     /**
     * The damage modifier for the hit.<br>
-    * This is by default 1.5F for ciritcal hits and 1F for normal hits .
+    * This is by default 1.5F for critical hits and 1F for normal hits .
     */
     public float getDamageModifier()
     {
@@ -82,8 +82,8 @@ public class CriticalHitEvent extends PlayerEvent
     }
 
     /**
-    * The orignal damage modifier for the hit wthout any changes.<br>
-    * This is 1.5F for ciritcal hits and 1F for normal hits .
+    * The original damage modifier for the hit without any changes.<br>
+    * This is 1.5F for critical hits and 1F for normal hits .
     */
     public float getOldDamageModifier()
     {

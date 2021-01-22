@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.LeashKnotEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.item.BoatEntity;

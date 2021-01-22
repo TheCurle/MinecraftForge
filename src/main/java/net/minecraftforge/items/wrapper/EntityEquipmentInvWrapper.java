@@ -31,11 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
 
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Exposes the armor or hands inventory of an {@link EntityLivingBase} as an {@link IItemHandler} using {@link EntityLivingBase#getItemStackFromSlot} and
  * {@link EntityLivingBase#setItemStackToSlot}.

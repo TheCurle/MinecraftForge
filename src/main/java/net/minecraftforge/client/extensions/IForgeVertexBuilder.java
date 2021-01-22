@@ -22,7 +22,6 @@ package net.minecraftforge.client.extensions;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.vector.*;

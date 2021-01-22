@@ -23,14 +23,12 @@ import java.io.File;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraftforge.fml.common.Mod;
-
 
 /**
  * DEPRECATED WITHOUT REPLACEMENT. REMOVE FROM YOUR CODE!!!
  * IT HAS NEVER BEEN FIRED IN 1.13+ AND WILL NEVER FIRE AGAIN!!!
  * FIRE.JPG FIRE.JPG FIRE.JPG
- * DELET THIS
+ * DELETE THIS
  */
 @Deprecated
 public class FMLFingerprintViolationEvent extends ModLifecycleEvent

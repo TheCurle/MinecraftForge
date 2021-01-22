@@ -21,7 +21,6 @@ package net.minecraftforge.common;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.server.ServerWorld;
@@ -38,7 +37,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
-import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.server.command.ForgeCommand;
 import net.minecraftforge.server.command.ConfigCommand;

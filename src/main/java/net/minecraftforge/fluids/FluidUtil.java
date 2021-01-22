@@ -499,7 +499,7 @@ public class FluidUtil
      *
      * @param player    Player who places the fluid. May be null for blocks like dispensers.
      * @param world     World to place the fluid in
-     * @param hand
+     * @param hand      The player's hand that is holding an item that should interact with the fluid handler block.
      * @param pos       The position in the world to place the fluid block
      * @param container The fluid container holding the fluidStack to place
      * @param resource  The fluidStack to place
@@ -526,7 +526,7 @@ public class FluidUtil
      *
      * @param player      Player who places the fluid. May be null for blocks like dispensers.
      * @param world       World to place the fluid in
-     * @param hand
+     * @param hand        The player's hand that is holding an item that should interact with the fluid handler block.
      * @param pos         The position in the world to place the fluid block
      * @param fluidSource The fluid source holding the fluidStack to place
      * @param resource    The fluidStack to place.
@@ -550,7 +550,7 @@ public class FluidUtil
             return false;
         }
 
-        BlockItemUseContext context = new BlockItemUseContext(new ItemUseContext(player, hand, new BlockRayTraceResult(Vector3d.ZERO, Direction.UP, pos, false))); //TODO: This neds proper context...
+        BlockItemUseContext context = new BlockItemUseContext(new ItemUseContext(player, hand, new BlockRayTraceResult(Vector3d.ZERO, Direction.UP, pos, false))); //TODO: This needs proper context...
 
         // Check that we can place the fluid at the destination
         BlockState destBlockState = world.getBlockState(pos);

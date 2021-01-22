@@ -23,7 +23,6 @@ import java.util.Map;
 
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelManager;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.eventbus.api.Event;

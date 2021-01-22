@@ -42,7 +42,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
-import net.minecraft.world.biome.Biome;
 
 @SuppressWarnings("deprecation")
 public abstract class LanguageProvider implements IDataProvider {

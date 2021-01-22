@@ -22,7 +22,6 @@ package net.minecraftforge.fml;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.storage.IServerConfiguration;
 import net.minecraft.world.storage.SaveFormat;
-import net.minecraftforge.fml.common.thread.EffectiveSide;
 
 import java.util.ArrayList;
 import java.util.List;

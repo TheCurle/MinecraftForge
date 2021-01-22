@@ -181,7 +181,7 @@ public class NetworkHooks
      *
      * @param player The player to open the GUI for
      * @param containerSupplier A supplier of container properties including the registry name of the container
-     * @param pos A block pos, which will be encoded into the auxillary data for this request
+     * @param pos A block pos, which will be encoded into the auxiliary data for this request
      */
     public static void openGui(ServerPlayerEntity player, INamedContainerProvider containerSupplier, BlockPos pos)
     {

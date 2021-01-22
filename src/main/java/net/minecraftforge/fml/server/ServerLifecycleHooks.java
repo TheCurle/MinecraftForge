@@ -90,7 +90,7 @@ public class ServerLifecycleHooks
     {
         currentServer = server;
         currentServer.getServerStatusResponse().setForgeData(new FMLStatusPing()); //gathers NetworkRegistry data
-        // on the dedi server we need to force the stuff to setup properly
+        // on the dedicated server we need to force the stuff to setup properly
         LogicalSidedProvider.setServer(()->server);
         ConfigTracker.INSTANCE.loadConfigs(ModConfig.Type.SERVER, getServerConfigPath(server));
         return !MinecraftForge.EVENT_BUS.post(new FMLServerAboutToStartEvent(server));
