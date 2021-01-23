@@ -26,7 +26,7 @@ import net.minecraft.entity.item.ItemEntity;
  * Event that is fired when an EntityItem's age has reached its maximum
  * lifespan. Canceling this event will prevent the EntityItem from being
  * flagged as dead, thus staying its removal from the world. If canceled
- * it will add more time to the entities life equal to extraLife.
+ * it will add more time to the entity's life equal to extraLife.
  */
 @Cancelable
 public class ItemExpireEvent extends ItemEvent

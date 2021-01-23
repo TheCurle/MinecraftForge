@@ -268,8 +268,15 @@ public class ForgeMod implements WorldPersistenceHooks.WorldPersistenceHook
         }
     }
 
-    @SubscribeEvent //ModBus, can't use addListener due to nested genetics.
+    // TODO: remove after sufficient time has passed, or 1.17.
+    @Deprecated
     public void registerRecipeSerialziers(RegistryEvent.Register<IRecipeSerializer<?>> event)
+    {
+        registerRecipeSerializers(event);
+    }
+
+    @SubscribeEvent //ModBus, can't use addListener due to nested genetics.
+    public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event)
     {
         CraftingHelper.register(AndCondition.Serializer.INSTANCE);
         CraftingHelper.register(FalseCondition.Serializer.INSTANCE);

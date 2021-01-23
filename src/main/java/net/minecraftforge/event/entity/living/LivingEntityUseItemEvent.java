@@ -61,7 +61,7 @@ public class LivingEntityUseItemEvent extends LivingEvent
      *   Drinking Potions/Milk
      *   Guarding with a sword
      *
-     * Cancel the event, or set the duration or <= 0 to prevent it from processing.
+     * Cancel the event, or set the duration to <= 0 to prevent it from processing.
      *
      */
     @Cancelable
@@ -76,7 +76,7 @@ public class LivingEntityUseItemEvent extends LivingEvent
     /**
      * Fired every tick that a player is 'using' an item, see {@link Start} for info.
      *
-     * Cancel the event, or set the duration or <= 0 to cause the player to stop using the item.
+     * Cancel the event, or set the duration to <= 0 to cause the player to stop using the item.
      *
      */
     @Cancelable
@@ -98,7 +98,7 @@ public class LivingEntityUseItemEvent extends LivingEvent
      * Duration on this event is how long the item had left in its count down before 'finishing'
      *
      * Canceling this event will prevent the Item from being notified that it has stopped being used,
-     * The only vanilla item this would effect are bows, and it would cause them NOT to fire there arrow.
+     * The only vanilla item this would effect are bows, and it would cause them NOT to fire their arrow.
      */
     @Cancelable
     public static class Stop extends LivingEntityUseItemEvent
@@ -111,7 +111,7 @@ public class LivingEntityUseItemEvent extends LivingEvent
 
     /**
      * Fired after an item has fully finished being used.
-     * The item has been notified that it was used, and the item/result stacks reflect after that state.
+     * The item has been notified that it was used, and the item/result stacks reflect that used state.
      * This means that when this is fired for a Potion, the potion effect has already been applied.
      *
      * {@link LivingEntityUseItemEvent#item} is a copy of the item BEFORE it was used.

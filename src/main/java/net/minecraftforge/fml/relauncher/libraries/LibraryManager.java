@@ -442,7 +442,14 @@ public class LibraryManager
         return merged;
     }
 
+    // TODO: remove in 1.17.
+    @Deprecated
     public static List<File> gatherLegacyCanidates(File mcDir)
+    {
+        return gatherLegacyCandidates(mcDir);
+    }
+
+    public static List<File> gatherLegacyCandidates(File mcDir)
     {
         List<File> list = new ArrayList<>();
 

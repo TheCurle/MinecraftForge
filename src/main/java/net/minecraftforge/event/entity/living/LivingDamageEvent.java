@@ -27,7 +27,7 @@ import net.minecraft.entity.LivingEntity;
 /**
  * LivingDamageEvent is fired just before damage is applied to entity.<br>
  * At this point armor, potion and absorption modifiers have already been applied to damage - this is FINAL value.<br>
- * Also note that appropriate resources (like armor durability and absorption extra hearths) have already been consumed.<br>
+ * Also note that appropriate resources (like armor durability and absorption extra hearts) have already been consumed.<br>
  * This event is fired whenever an Entity is damaged in
  * {@link EntityLivingBase#damageEntity(DamageSource, float)} and
  * {@link EntityPlayer#damageEntity(DamageSource, float)}.<br>

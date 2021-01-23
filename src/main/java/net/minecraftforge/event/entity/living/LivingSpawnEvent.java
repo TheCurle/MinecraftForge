@@ -78,7 +78,8 @@ public class LivingSpawnEvent extends LivingEvent
         private final SpawnReason spawnReason;
 
         /**
-         * CheckSpawn is fired when an Entity is about to be spawned.
+         * CheckSpawn is fired when an Entity is about to be spawned. <br>
+         * This includes natural spawning and mob spawners.
          * @param entity the spawning entity
          * @param world the world to spawn in
          * @param x x coordinate
@@ -86,6 +87,7 @@ public class LivingSpawnEvent extends LivingEvent
          * @param z z coordinate
          * @param spawner position of the MobSpawner
          *                  null if it this spawn is coming from a WorldSpawner
+         * @param spawnReason the cause of the Entity Spawn.
          */
         public CheckSpawn(MobEntity entity, IWorld world, double x, double y, double z, @Nullable AbstractSpawner spawner, SpawnReason spawnReason)
         {
@@ -112,8 +114,10 @@ public class LivingSpawnEvent extends LivingEvent
     }
 
     /**
-     * SpecialSpawn is fired when an Entity is to be spawned.<br>
+     * SpecialSpawn is fired when an Entity is about to be spawned.<br>
      * This allows you to do special initializers in the new entity.<br>
+     * This event occurs on natural spawns, monster spawners, spawn eggs,<br>
+     * fish-in-buckets, the Wandering Trader, and portal-related spawns. <br>
      * <br>
      * This event is fired via the {@link ForgeEventFactory#doSpecialSpawn(EntityLiving, World, float, float, float)}.<br>
      * <br>
@@ -132,7 +136,17 @@ public class LivingSpawnEvent extends LivingEvent
         private final SpawnReason spawnReason;
 
         /**
-         * @param spawner the position of a TileEntity or approximate position of an entity that initiated the spawn if any
+         * SpecialSpawn is fired when an Entity is about to be spawned.
+         * This event occurs on natural spawns, monster spawners, spawn eggs,
+         * fish-in-buckets, the Wandering Trader, and portal-related spawns.
+         * @param entity the spawning entity
+         * @param world the world to spawn in
+         * @param x x coordinate
+         * @param y y coordinate
+         * @param z z coordinate
+         * @param spawner position of the MobSpawner
+         *                  null if it this spawn is coming from a WorldSpawner
+         * @param spawnReason the cause of the Entity Spawn.
          */
         public SpecialSpawn(MobEntity entity, World world, double x, double y, double z, @Nullable AbstractSpawner spawner, SpawnReason spawnReason)
         {
