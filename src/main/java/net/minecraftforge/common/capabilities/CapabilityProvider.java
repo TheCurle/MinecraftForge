@@ -112,9 +112,9 @@ public abstract class CapabilityProvider<B extends CapabilityProvider<B>> implem
 
     @Override
     @Nonnull
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side)
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing)
     {
         final CapabilityDispatcher disp = getCapabilities();
-        return !valid || disp == null ? LazyOptional.empty() : disp.getCapability(cap, side);
+        return !valid || disp == null ? LazyOptional.empty() : disp.getCapability(capability, facing);
     }
 }

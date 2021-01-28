@@ -74,7 +74,7 @@ public class ModList
                     create(listFile, mcdir); //Create will recursively create parent lists, so after this run everything should be populated.
             }
         }
-        return ImmutableList.copyOf(cache.values()); //TODO: Do we care about order? I dont think so as we resolve all libs in a flat map.
+        return ImmutableList.copyOf(cache.values()); //TODO: Do we care about order? I don't think so as we resolve all libs in a flat map.
     }
 
     @SuppressWarnings("unchecked")

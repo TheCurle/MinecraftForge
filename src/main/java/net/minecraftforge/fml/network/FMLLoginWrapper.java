@@ -59,7 +59,7 @@ public class FMLLoginWrapper {
             data = new PacketBuffer(payload.readBytes(payloadLength));
         }
         final int loginSequence = packet.getLoginIndex();
-        LOGGER.debug(FMLHandshakeHandler.FMLHSMARKER, "Recieved login wrapper packet event for channel {} with index {}", targetNetworkReceiver, loginSequence);
+        LOGGER.debug(FMLHandshakeHandler.FMLHSMARKER, "Received login wrapper packet event for channel {} with index {}", targetNetworkReceiver, loginSequence);
         final NetworkEvent.Context context = new NetworkEvent.Context(wrappedContext.getNetworkManager(), wrappedContext.getDirection(), new PacketDispatcher((rl, buf) -> {
             LOGGER.debug(FMLHandshakeHandler.FMLHSMARKER, "Dispatching wrapped packet reply for channel {} with index {}", rl, loginSequence);
             wrappedContext.getPacketDispatcher().sendPacket(WRAPPER, this.wrapPacket(rl, buf));

@@ -23,7 +23,6 @@ import net.minecraft.world.Difficulty;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.Event.HasResult;
 
 /**
  * DifficultyChangeEvent is fired when difficulty is changing. <br>

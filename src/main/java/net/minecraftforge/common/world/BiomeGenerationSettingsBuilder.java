@@ -27,10 +27,8 @@ import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class BiomeGenerationSettingsBuilder extends BiomeGenerationSettings.Builder

@@ -24,7 +24,6 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Cancelable;
-import net.minecraftforge.eventbus.api.Event.HasResult;
 
 /**
  * EntityTravelToDimensionEvent is fired before an Entity travels to a dimension.<br>

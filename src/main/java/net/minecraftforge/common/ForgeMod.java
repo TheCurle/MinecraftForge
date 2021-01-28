@@ -48,7 +48,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.server.command.EnumArgument;
 import net.minecraftforge.server.command.ModIdArgument;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.versions.forge.ForgeVersion;
 import net.minecraftforge.versions.mcp.MCPVersion;
 
@@ -269,8 +268,15 @@ public class ForgeMod implements WorldPersistenceHooks.WorldPersistenceHook
         }
     }
 
-    @SubscribeEvent //ModBus, can't use addListener due to nested genetics.
+    // TODO: remove after sufficient time has passed, or 1.17.
+    @Deprecated
     public void registerRecipeSerialziers(RegistryEvent.Register<IRecipeSerializer<?>> event)
+    {
+        registerRecipeSerializers(event);
+    }
+
+    @SubscribeEvent //ModBus, can't use addListener due to nested genetics.
+    public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event)
     {
         CraftingHelper.register(AndCondition.Serializer.INSTANCE);
         CraftingHelper.register(FalseCondition.Serializer.INSTANCE);

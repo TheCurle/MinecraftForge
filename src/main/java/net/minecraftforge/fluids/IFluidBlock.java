@@ -25,7 +25,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Implement this interface on Block classes which represent world-placeable Fluids.
@@ -61,7 +60,7 @@ public interface IFluidBlock
      *
      * @param action
      *            If SIMULATE, the drain will only be simulated.
-     * @return
+     * @return the FluidStack removed from the world.
      */
     @Nonnull
     FluidStack drain(World world, BlockPos pos, IFluidHandler.FluidAction action);
@@ -70,7 +69,7 @@ public interface IFluidBlock
      * Check to see if a block can be drained. This method should be called by devices such as
      * pumps.
      *
-     * @return
+     * @return true if the block contains a fluid that can be drained.
      */
     boolean canDrain(World world, BlockPos pos);
 
@@ -81,7 +80,7 @@ public interface IFluidBlock
      * If the return value is negative. It will be treated as filling the block
      * from the top down instead of bottom up.
      *
-     * @return
+     * @return 0.0 to 1.0 amount that the block is filled with liquid, or -1.0 to 0.0 that the block is filled from the top down.
      */
     float getFilledPercentage(World world, BlockPos pos);
 }

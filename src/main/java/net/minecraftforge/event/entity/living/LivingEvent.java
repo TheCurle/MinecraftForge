@@ -26,7 +26,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityEvent;
 
 /**
- * LivingEvent is fired whenever an event involving Living entities occurs.<br>
+ * LivingEvent is fired whenever an event involving Living Entities occurs.<br>
  * If a method utilizes this {@link net.minecraftforge.eventbus.api.Event} as its parameter, the method will
  * receive every child event of this class.<br>
  * <br>

@@ -19,8 +19,6 @@
 
 package net.minecraftforge.common.extensions;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.Fluid;
@@ -43,7 +41,7 @@ public interface IForgeFluidState
      * display material overlays, or if the entity can swim inside a block.
      *
      * @param world that is being tested.
-     * @param pos position thats being tested.
+     * @param pos position that's being tested.
      * @param entity that is being tested.
      * @param yToTest, primarily for testingHead, which sends the the eye level of the entity, other wise it sends a y that can be tested vs liquid height.
      * @param tag to test for.

@@ -40,7 +40,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
@@ -180,7 +179,7 @@ public interface IForgeItemStack extends ICapabilitySerializable<CompoundNBT>
     /**
      * ItemStack sensitive version of getItemEnchantability
      *
-     * @return the item echantability value
+     * @return the item Enchantability value
      */
     default int getItemEnchantability()
     {
@@ -208,7 +207,7 @@ public interface IForgeItemStack extends ICapabilitySerializable<CompoundNBT>
      * @param shield   The shield in question
      * @param entity   The EntityLivingBase holding the shield
      * @param attacker The EntityLivingBase holding the ItemStack
-     * @retrun True if this ItemStack can disable the shield in question.
+     * @return True if this ItemStack can disable the shield in question.
      */
     default boolean canDisableShield(ItemStack shield, LivingEntity entity, LivingEntity attacker)
     {
@@ -251,7 +250,7 @@ public interface IForgeItemStack extends ICapabilitySerializable<CompoundNBT>
 
     /**
      * Retrieves the normal 'lifespan' of this item when it is dropped on the ground
-     * as a EntityItem. This is in ticks, standard result is 6000, or 5 mins.
+     * as a EntityItem. This is in ticks, standard result is 6000, or 5 minutes.
      *
      * @param world     The world the entity is in
      * @return The normal lifespan in ticks.
@@ -262,7 +261,7 @@ public interface IForgeItemStack extends ICapabilitySerializable<CompoundNBT>
     }
 
     /**
-     * Called by the default implemetation of EntityItem's onUpdate method, allowing
+     * Called by the default implementation of EntityItem's onUpdate method, allowing
      * for cleaner control over the update of the item without having to write a
      * subclass.
      *

@@ -144,7 +144,7 @@ public interface IForgeEntityMinecart
      * current movement and cannot be overridden. The value however can never be
      * higher than getMaxCartSpeedOnRail().
      *
-     * @return
+     * @return Current max speed.
      */
     float getCurrentCartSpeedCapOnRail();
     void setCurrentCartSpeedCapOnRail(float value);

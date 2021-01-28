@@ -34,7 +34,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IRegistryDelegate;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -294,7 +293,7 @@ public class FluidStack
     /**
      * Determines if the Fluids are equal and this stack is larger.
      *
-     * @param other
+     * @param other the FluidStack for comparison.
      * @return true if this FluidStack contains the other FluidStack (same fluid and >= amount)
      */
     public boolean containsFluid(@Nonnull FluidStack other)
@@ -305,8 +304,7 @@ public class FluidStack
     /**
      * Determines if the FluidIDs, Amounts, and NBT Tags are all equal.
      *
-     * @param other
-     *            - the FluidStack for comparison
+     * @param other the FluidStack for comparison
      * @return true if the two FluidStacks are exactly the same
      */
     public boolean isFluidStackIdentical(FluidStack other)
@@ -318,8 +316,7 @@ public class FluidStack
      * Determines if the FluidIDs and NBT Tags are equal compared to a registered container
      * ItemStack. This does not check amounts.
      *
-     * @param other
-     *            The ItemStack for comparison
+     * @param other The ItemStack for comparison
      * @return true if the Fluids (IDs and NBT Tags) are the same
      */
     public boolean isFluidEqual(@Nonnull ItemStack other)

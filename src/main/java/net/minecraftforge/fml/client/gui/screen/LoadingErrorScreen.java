@@ -28,7 +28,6 @@ import net.minecraft.client.gui.widget.list.ExtendedList;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.ForgeI18n;

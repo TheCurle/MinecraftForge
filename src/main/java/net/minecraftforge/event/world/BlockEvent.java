@@ -22,7 +22,6 @@ package net.minecraftforge.event.world;
 import java.util.EnumSet;
 import java.util.List;
 
-import net.minecraft.block.NetherPortalBlock;
 import net.minecraft.block.PortalSize;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -30,7 +29,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.world.IWorld;
@@ -46,8 +44,6 @@ import com.google.common.collect.ImmutableList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import net.minecraftforge.eventbus.api.Event.HasResult;
 
 public class BlockEvent extends Event
 {

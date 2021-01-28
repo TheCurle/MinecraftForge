@@ -84,7 +84,7 @@ public enum NetworkDirection
         return logicalSide;
     }
 
-    public LogicalSide getReceptionSide() { return reply().logicalSide; };
+    public LogicalSide getReceptionSide() { return reply().logicalSide; }
 
     @SuppressWarnings("unchecked")
     public <T extends IPacket<?>> ICustomPacket<T> buildPacket(Pair<PacketBuffer,Integer> packetData, ResourceLocation channelName)

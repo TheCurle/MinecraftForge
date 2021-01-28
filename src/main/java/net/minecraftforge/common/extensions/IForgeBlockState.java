@@ -440,7 +440,8 @@ public interface IForgeBlockState
     *
     * @param world The world
     * @param pos Block position
-    * @param fortune
+    * @param fortune the level of fortune modifier, or zero if none.
+    * @param silktouch the level of silktouch modifier, or zero if none.
     * @return Amount of XP from breaking this block.
     */
     default int getExpDrop(IWorldReader world, BlockPos pos, int fortune, int silktouch)
@@ -478,7 +479,6 @@ public interface IForgeBlockState
    /**
     * Called on an Observer block whenever an update for an Observer is received.
     *
-    * @param observerState The Observer block's state.
     * @param world The current world.
     * @param pos The Observer block's position.
     * @param changed The updated block.
@@ -532,6 +532,7 @@ public interface IForgeBlockState
     /**
      * Checks if the specified tool type is efficient on this block,
      * meaning that it digs at full speed.
+     * @param tool Type of tool to check against.
      */
     default boolean isToolEffective(ToolType tool)
     {
@@ -551,9 +552,10 @@ public interface IForgeBlockState
     }
 
     /**
+     * Gets the RGB color of a specific beacon's beam.
      * @param world The world
      * @param pos The position of this state
-     * @param beaconPos The position of the beacon
+     * @param beacon The position of the beacon
      * @return A float RGB [0.0, 1.0] array to be averaged with a beacon's existing beam color, or null to do nothing to the beam
      */
     @Nullable
@@ -594,8 +596,9 @@ public interface IForgeBlockState
     }
 
     /**
-     * @param state The state
-     * @return true if the block is sticky block which used for pull or push adjacent blocks (use by piston)
+     * If the block is a Slime Block.
+     *
+     * @return true if the block is slime block which used for pull or push adjacent blocks (use by piston)
      */
     default boolean isSlimeBlock()
     {
@@ -603,7 +606,8 @@ public interface IForgeBlockState
     }
 
     /**
-     * @param state The state
+     * If the block is a Sticky Block, either a Slime Block or honey block.
+     *
      * @return true if the block is sticky block which used for pull or push adjacent blocks (use by piston)
      */
     default boolean isStickyBlock()
@@ -613,6 +617,7 @@ public interface IForgeBlockState
 
     /**
      * Determines if this block can stick to another block when pushed by a piston.
+     *
      * @param other Other block
      * @return True to link blocks
      */
@@ -790,7 +795,7 @@ public interface IForgeBlockState
      * @param pos The block position in world
      * @param player The player clicking the block
      * @param stack The stack being used by the player
-     * @param toolTypes The tool types to be considered when performing the action
+     * @param toolType The tool type to be considered when performing the action
      * @return The resulting state after the action has been performed
      */
     @Nullable

@@ -158,5 +158,5 @@ public abstract class FMLCommonLaunchHandler
 
     public boolean isData() {
         return false;
-    };
+    }
 }

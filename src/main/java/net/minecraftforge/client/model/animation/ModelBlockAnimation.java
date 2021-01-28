@@ -498,13 +498,13 @@ public class ModelBlockAnimation
             @SerializedName("origin_y")
             YORIGIN,
             @SerializedName("origin_z")
-            ZORIGIN;
+            ZORIGIN
         }
 
         public static enum Type
         {
             @SerializedName("uniform")
-            UNIFORM;
+            UNIFORM
         }
 
         public static enum Interpolation
@@ -512,7 +512,7 @@ public class ModelBlockAnimation
             @SerializedName("linear")
             LINEAR,
             @SerializedName("nearest")
-            NEAREST;
+            NEAREST
         }
     }
 

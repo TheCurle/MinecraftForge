@@ -66,7 +66,7 @@ public final class UsernameCache {
     private UsernameCache() {}
 
     /**
-     * Set a player's current usernamee
+     * Set a player's current username
      *
      * @param uuid
      *            the player's {@link java.util.UUID UUID}

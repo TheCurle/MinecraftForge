@@ -95,7 +95,7 @@ public final class DistExecutor
     }
 
     /**
-     * Runs the supplied Runnable on the speicified side. Same warnings apply as {@link #callWhenOn(Dist, Supplier)}.
+     * Runs the supplied Runnable on the specified side. Same warnings apply as {@link #callWhenOn(Dist, Supplier)}.
      *
      * This method can cause unexpected ClassNotFound exceptions.
      *
@@ -109,7 +109,7 @@ public final class DistExecutor
         unsafeRunWhenOn(dist, toRun);
     }
     /**
-     * Runs the supplied Runnable on the speicified side. Same warnings apply as {@link #unsafeCallWhenOn(Dist, Supplier)}.
+     * Runs the supplied Runnable on the specified side. Same warnings apply as {@link #unsafeCallWhenOn(Dist, Supplier)}.
      *
      * This method can cause unexpected ClassNotFoundException problems in common scenarios. Understand the pitfalls of
      * the way the class verifier works to load classes before using this.

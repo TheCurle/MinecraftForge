@@ -25,7 +25,7 @@ import net.minecraft.item.crafting.IRecipe;
 /**
  * Used to mark a recipe that shape matters so that the recipe
  * book and auto crafting picks the correct shape.
- * Note: These methods can't be named 'getHeight' or 'getWidth' due to obfusication issues.
+ * Note: These methods can't be named 'getHeight' or 'getWidth' due to obfuscation issues.
  */
 public interface IShapedRecipe<T extends IInventory> extends IRecipe<T>
 {

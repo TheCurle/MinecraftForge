@@ -195,7 +195,7 @@ public class LibraryManager
     {
         if (processed.contains(file))
         {
-            LOGGER.debug("File already proccessed {}, Skipping", file.getAbsolutePath());
+            LOGGER.debug("File already processed {}, Skipping", file.getAbsolutePath());
             return null;
         }
         JarFile jar = null;
@@ -227,7 +227,7 @@ public class LibraryManager
 
         JarEntry manifest_entry = jar.getJarEntry(JarFile.MANIFEST_NAME);
         if (manifest_entry == null)
-            manifest_entry = jar.stream().filter(e -> JarFile.MANIFEST_NAME.equals(e.getName().toUpperCase(Locale.ENGLISH))).findFirst().get(); //We know that getManifest returned non-null so we know there is *some* entry that matches the manifest file. So we dont need to empty check.
+            manifest_entry = jar.stream().filter(e -> JarFile.MANIFEST_NAME.equals(e.getName().toUpperCase(Locale.ENGLISH))).findFirst().get(); //We know that getManifest returned non-null so we know there is *some* entry that matches the manifest file. So we don't need to empty check.
 
         attrs = jar.getManifest().getMainAttributes();
 
@@ -442,7 +442,14 @@ public class LibraryManager
         return merged;
     }
 
+    // TODO: remove in 1.17.
+    @Deprecated
     public static List<File> gatherLegacyCanidates(File mcDir)
+    {
+        return gatherLegacyCandidates(mcDir);
+    }
+
+    public static List<File> gatherLegacyCandidates(File mcDir)
     {
         List<File> list = new ArrayList<>();
 
@@ -465,7 +472,7 @@ public class LibraryManager
                 }
                 else if (!list.contains(file))
                 {
-                    LOGGER.debug("  Duplicte command line mod detected {} ({})", mod, file.getAbsolutePath());
+                    LOGGER.debug("  Duplicate command line mod detected {} ({})", mod, file.getAbsolutePath());
                 }
             }
         }

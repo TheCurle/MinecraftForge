@@ -28,10 +28,8 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Cancelable;
 
-import net.minecraftforge.eventbus.api.Event.HasResult;
-
 /**
- * This Event and its subevents gets fired from  {@link EntityLivingBase} on the  {@link MinecraftForge#EVENT_BUS}.<br>
+ * This Event and its subevents gets fired from {@link EntityLivingBase} on the {@link MinecraftForge#EVENT_BUS}.<br>
  */
 public class PotionEvent extends LivingEvent
 {
@@ -44,7 +42,7 @@ public class PotionEvent extends LivingEvent
         this.effect = effect;
     }
     /**
-     * Retuns the PotionEffect.
+     * @return the PotionEffect.
      */
     @Nullable
     public EffectInstance getPotionEffect()
@@ -136,7 +134,7 @@ public class PotionEvent extends LivingEvent
         }
 
         /**
-         * @return the added PotionEffect. This is the umerged PotionEffect if the old PotionEffect is not null.
+         * @return the added PotionEffect. This is the unmerged PotionEffect if the old PotionEffect is not null.
          */
         @Override
         @Nonnull
@@ -146,7 +144,7 @@ public class PotionEvent extends LivingEvent
         }
 
         /**
-         * @return the old PotionEffect. THis can be null if the entity did not have an effect of this kind before.
+         * @return the old PotionEffect. This can be null if the entity did not have an effect of this kind before.
          */
         @Nullable
         public EffectInstance getOldPotionEffect()

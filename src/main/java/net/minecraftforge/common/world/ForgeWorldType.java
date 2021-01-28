@@ -81,7 +81,11 @@ public class ForgeWorldType extends ForgeRegistryEntry<ForgeWorldType>
 
     /**
      * Called from both the dedicated server and the world creation screen in the client.
-     * to construct the DimensionGEneratorSettings:
+     * to construct the DimensionGeneratorSettings:
+     * @param biomeRegistry Registry of biomes to be used within the chunk generator.
+     * @param dimensionSettingsRegistry Dimensional settings to be used within the chunk generator
+     * @param seed seed for the chunk generator to use for random generation.
+     * @param generatorSettings Additional generator settings.
      * @return The constructed chunk generator.
      */
     public ChunkGenerator createChunkGenerator(Registry<Biome> biomeRegistry, Registry<DimensionSettings> dimensionSettingsRegistry, long seed, String generatorSettings)

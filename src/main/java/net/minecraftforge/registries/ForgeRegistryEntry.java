@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 /**
  * Default implementation of IForgeRegistryEntry, this is necessary to reduce redundant code.
- * This also enables the registrie's ability to manage delegates. Which are automatically updated
+ * This also enables the registry's ability to manage delegates. Which are automatically updated
  * if another entry overrides existing ones in the registry.
  */
 @SuppressWarnings("unchecked")

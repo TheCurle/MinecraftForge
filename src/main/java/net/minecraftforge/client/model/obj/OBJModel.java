@@ -395,7 +395,7 @@ public class OBJModel implements IMultipartModelGeometry<OBJModel>
                 normal = norm0.copy();
                 transformation.transformPosition(position);
                 transformation.transformNormal(normal);
-            };
+            }
             Vector4f tintedColor = new Vector4f(
                     color.getX() * colorTint.getX(),
                     color.getY() * colorTint.getY(),

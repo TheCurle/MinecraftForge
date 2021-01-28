@@ -67,7 +67,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public class ForgeRegistries
 {
-    static { init(); } // This must be above the fields so we guarantee it's run before findRegistry is called. Yay static inializers
+    static { init(); } // This must be above the fields so we guarantee it's run before findRegistry is called. Yay static initializers
 
     // Game objects
     public static final IForgeRegistry<Block> BLOCKS = RegistryManager.ACTIVE.getRegistry(Block.class);
@@ -164,7 +164,7 @@ public class ForgeRegistries
     }
 
     /**
-     * This function is just to make sure static inializers in other classes have run and setup their registries before we query them.
+     * This function is just to make sure static initializers in other classes have run and setup their registries before we query them.
      */
     private static void init()
     {

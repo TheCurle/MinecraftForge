@@ -203,7 +203,7 @@ public class ModFileInfo implements IModFileInfo, IConfigurable
                     sb.append(" self-signed");
                    } else {
                        sb.append(" signed by ").append(c.getIssuerX500Principal().getName(X500Principal.RFC2253).split(",")[0]);
-                   };
+                   }
                    return sb.toString();
                 });
     }
