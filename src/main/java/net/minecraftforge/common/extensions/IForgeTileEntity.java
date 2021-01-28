@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016-2021.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -48,7 +48,7 @@ public interface IForgeTileEntity extends ICapabilitySerializable<CompoundNBT>
         deserializeNBT(null, nbt);
     }
 
-    // @Override TODO  re-evaluate
+    // @Override TODO re-evaluate
     default void deserializeNBT(BlockState state, CompoundNBT nbt)
     {
         getTileEntity().read(state, nbt);

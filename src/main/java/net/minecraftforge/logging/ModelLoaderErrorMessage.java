@@ -1,6 +1,6 @@
 /*
  * Minecraft Forge
- * Copyright (c) 2016-2020.
+ * Copyright (c) 2016-2021.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -46,15 +46,15 @@ public class ModelLoaderErrorMessage extends SimpleMessage
 
     private static void buildLookups() {
         if (!reverseBlockMap.isEmpty()) return;
-        
+
         ForgeRegistries.BLOCKS.getValues().stream()
-        	.flatMap(block -> block.getStateContainer().getValidStates().stream())
-        	.forEach(state -> reverseBlockMap.put(BlockModelShapes.getModelLocation(state), state));
+            .flatMap(block -> block.getStateContainer().getValidStates().stream())
+            .forEach(state -> reverseBlockMap.put(BlockModelShapes.getModelLocation(state), state));
 
         ForgeRegistries.ITEMS.forEach(item ->
         {
-        	ModelResourceLocation memory = getInventoryVariant(ForgeRegistries.ITEMS.getKey(item).toString());
-        	reverseItemMap.put(memory, item.getRegistryName().toString());
+            ModelResourceLocation memory = getInventoryVariant(ForgeRegistries.ITEMS.getKey(item).toString());
+            reverseItemMap.put(memory, item.getRegistryName().toString());
         });
 
     }
