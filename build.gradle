@@ -49,6 +49,14 @@ ext {
     SPI_VERSION = '3.2.0'
 }
 
+def mcpVer = MC_VERSION + '-' + MCP_VERSION
+def mcpConf = file("${System.getProperty("user.home")}/.gradle/caches/forge_gradle/minecraft_repo/versions/${mcpVer}/mcp.zip")
+if (!mcpConf.exists()) {
+    mcpConf.getParentFile().mkdirs()
+    new URL("https://maven.gemwire.uk/de/oceanlabs/mcp/mcp_config/${mcpVer}/mcp_config-${mcpVer}.zip")
+            .withInputStream{ i -> mcpConf.withOutputStream{ it << i }}
+}
+
 project(':mcp') {
     apply plugin: 'net.minecraftforge.gradle.mcp'
     repositories {
