@@ -220,6 +220,11 @@ project(':forge') {
         accessTransformer = file("$rootDir/src/main/resources/forge_at.cfg")
         //sideAnnotationStripper = file("$rootDir/src/main/resources/forge.sas")
 
+        applyPatches {
+            originalPrefix = "src-base/"
+            modifiedPrefix = "src-work/"
+        }
+
         runs {
             forge_client {
                 taskName 'forge_client'
