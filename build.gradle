@@ -29,6 +29,12 @@ plugins {
     id 'eclipse'
 }
 
+allprojects {
+    repositories {
+        maven { url = "https://maven.gemwire.uk" }
+    }
+}
+
 Util.init() //Init all our extension methods!
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
@@ -43,7 +49,7 @@ ext {
         ]
     }
     MAPPING_CHANNEL = 'snapshot'
-    MAPPING_VERSION = '20170612-1.11'
+    MAPPING_VERSION = '20170118-1.11'
     MC_VERSION = '1.11.2'
     MCP_VERSION = '20210423.224536'
     SPI_VERSION = '3.2.0'
