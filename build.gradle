@@ -214,6 +214,11 @@ project(':forge') {
     version = Util.getVersion(GIT_INFO, MC_VERSION)
     println('Forge Version: ' + version)
 
+    applyPatches {
+        originalPrefix = "../src-base/"
+        modifiedPrefix = "../src-work/"
+    }
+
     patcher {
 
         exc = file("$rootDir/src/main/resources/forge.exc")
@@ -225,12 +230,7 @@ project(':forge') {
 
         accessTransformer = file("$rootDir/src/main/resources/forge_at.cfg")
         //sideAnnotationStripper = file("$rootDir/src/main/resources/forge.sas")
-
-        applyPatches {
-            originalPrefix = "../src-base/"
-            modifiedPrefix = "../src-work/"
-        }
-
+        
         runs {
             forge_client {
                 taskName 'forge_client'
