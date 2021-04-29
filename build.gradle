@@ -221,8 +221,8 @@ project(':forge') {
         //sideAnnotationStripper = file("$rootDir/src/main/resources/forge.sas")
 
         applyPatches {
-            originalPrefix = "src-base/"
-            modifiedPrefix = "src-work/"
+            originalPrefix = "../src-base/"
+            modifiedPrefix = "../src-work/"
         }
 
         runs {
