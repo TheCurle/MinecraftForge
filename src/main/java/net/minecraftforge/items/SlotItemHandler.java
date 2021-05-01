@@ -121,10 +121,11 @@ public class SlotItemHandler extends Slot
     {
         return itemHandler;
     }
-/* TODO Slot patches
+
+
     @Override
     public boolean isSameInventory(Slot other)
     {
         return other instanceof SlotItemHandler && ((SlotItemHandler) other).getItemHandler() == this.itemHandler;
-    }*/
+    }
 }
