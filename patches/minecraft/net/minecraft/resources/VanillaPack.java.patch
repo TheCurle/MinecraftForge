@@ -20,7 +20,7 @@
     public boolean func_195764_b(ResourcePackType p_195764_1_, ResourceLocation p_195764_2_) {
 @@ -225,5 +_,20 @@
     }
-
+ 
     public void close() {
 +   }
 +

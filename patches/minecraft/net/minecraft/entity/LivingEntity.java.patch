@@ -32,7 +32,7 @@
 +            ((ServerWorld)this.field_70170_p).func_195598_a(new BlockParticleData(ParticleTypes.field_197611_d, p_184231_4_).setPos(p_184231_5_), this.func_226277_ct_(), this.func_226278_cu_(), this.func_226281_cx_(), i, 0.0D, 0.0D, 0.0D, (double)0.15F);
           }
        }
-
+ 
 @@ -330,7 +_,7 @@
                 }
              }
@@ -81,7 +81,7 @@
 +      d0 = net.minecraftforge.common.ForgeHooks.getEntityVisibilityMultiplier(this, p_213340_1_, d0);
        return d0;
     }
-
+ 
 @@ -782,7 +_,9 @@
  
           boolean flag;
@@ -181,7 +181,7 @@
 +
 +      int i = net.minecraftforge.common.ForgeHooks.getLootingLevel(this, entity, p_213345_1_);
 +      this.captureDrops(new java.util.ArrayList<>());
-
+ 
        boolean flag = this.field_70718_bc > 0;
        if (this.func_230282_cS_() && this.field_70170_p.func_82736_K().func_223586_b(GameRules.field_223602_e)) {
 @@ -1231,6 +_,10 @@

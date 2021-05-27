@@ -37,7 +37,7 @@
     }
  
 @@ -513,6 +_,11 @@
-
+ 
     public boolean func_213199_b(GameProfile p_213199_1_) {
        return false;
 +   }
@@ -46,5 +46,5 @@
 +   public void func_145747_a(net.minecraft.util.text.ITextComponent message, java.util.UUID p_145747_2_) {
 +      field_155771_h.info(message.getString());
     }
-
+ 
     public int func_230512_b_(int p_230512_1_) {

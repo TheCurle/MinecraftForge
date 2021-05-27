@@ -82,7 +82,7 @@
           double d0 = 0.25D;
           voxelshape.func_197755_b((p_228348_3_, p_228348_5_, p_228348_7_, p_228348_9_, p_228348_11_, p_228348_13_) -> {
 @@ -432,6 +_,12 @@
-
+ 
     public String func_78869_b() {
        return String.valueOf(this.field_78876_b.values().stream().mapToInt(Collection::size).sum());
 +   }
@@ -92,5 +92,5 @@
 +      if (!state.addHitEffects(field_78878_a, target, this))
 +         func_180532_a(pos, target.func_216354_b());
     }
-
+ 
     @OnlyIn(Dist.CLIENT)

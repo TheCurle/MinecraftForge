@@ -12,14 +12,14 @@
 @@ -50,14 +_,14 @@
        return field_227982_g_;
     }
-
+ 
 -   public TransformationMatrix func_227985_a_(TransformationMatrix p_227985_1_) {
 +   public TransformationMatrix compose(TransformationMatrix p_227985_1_) {
        Matrix4f matrix4f = this.func_227988_c_();
        matrix4f.func_226595_a_(p_227985_1_.func_227988_c_());
        return new TransformationMatrix(matrix4f);
     }
-
+ 
     @Nullable
 -   public TransformationMatrix func_227987_b_() {
 +   public TransformationMatrix inverse() {

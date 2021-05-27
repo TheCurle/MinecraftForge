@@ -237,5 +237,5 @@
 +   private static <T extends net.minecraftforge.registries.IForgeRegistryEntry<T>> DefaultedRegistry<T> forge(RegistryKey<? extends Registry<T>> key, String defKey, Lifecycle cycle, Supplier<T> def) {
 +      return func_239743_a_(key, net.minecraftforge.registries.GameData.getWrapper(key, cycle, defKey), def, cycle);
     }
-
+ 
     private static <T, R extends MutableRegistry<T>> R func_239743_a_(RegistryKey<? extends Registry<T>> p_239743_0_, R p_239743_1_, Supplier<T> p_239743_2_, Lifecycle p_239743_3_) {

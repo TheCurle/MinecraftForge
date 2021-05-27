@@ -45,5 +45,5 @@
 +   public boolean hasCachedProperties() {
 +       return properties != null;
     }
-
+ 
     @OnlyIn(Dist.CLIENT)

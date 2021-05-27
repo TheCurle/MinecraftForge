@@ -83,7 +83,7 @@
 @@ -424,18 +_,22 @@
           return this.field_215709_e;
        }
-
+ 
 +      /** @deprecated use {@link BlockState#getLightValue(IBlockReader, BlockPos)} */
 +      @Deprecated
        public int func_185906_d() {
@@ -166,5 +166,5 @@
 +          this.lootTableSupplier = () -> blockIn.get().func_220068_i();
 +          return this;
        }
-
+ 
        public AbstractBlock.Properties func_235859_g_() {

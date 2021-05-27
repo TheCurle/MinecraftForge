@@ -51,7 +51,7 @@
        RenderType rendertype = field_228387_b_.get(p_228391_0_.func_206886_c());
        return rendertype != null ? rendertype : RenderType.func_228639_c_();
     }
-
+ 
 +   // Forge Start
 +
 +   private static final Map<net.minecraftforge.registries.IRegistryDelegate<Block>, java.util.function.Predicate<RenderType>> blockRenderChecks = Maps.newHashMap();

@@ -32,7 +32,7 @@
 -               f1 = this.field_70170_p.func_180495_p(new BlockPos(this.func_226277_ct_(), this.func_226278_cu_() - 1.0D, this.func_226281_cx_())).func_177230_c().func_208618_m() * 0.98F;
 +               f1 = this.field_70170_p.func_180495_p(new BlockPos(this.func_226277_ct_(), this.func_226278_cu_() - 1.0D, this.func_226281_cx_())).getSlipperiness(field_70170_p, new BlockPos(this.func_226277_ct_(), this.func_226278_cu_() - 1.0D, this.func_226281_cx_()), this) * 0.98F;
              }
-
+ 
              this.func_213317_d(this.func_213322_ci().func_216372_d((double)f1, 0.98D, (double)f1));
 @@ -144,7 +_,14 @@
              }

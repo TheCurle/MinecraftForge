@@ -166,6 +166,6 @@
 +      });
 +   }
 +   //Forge End
-
+ 
     public static final class RenderSideCacheKey {
        private final BlockState field_212164_a;

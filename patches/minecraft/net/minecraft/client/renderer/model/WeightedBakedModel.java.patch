@@ -44,7 +44,7 @@
     public ItemCameraTransforms func_177552_f() {
        return this.field_177566_c.func_177552_f();
     }
-
+ 
 +   // Forge: Add handlePerspective()
 +   public IBakedModel handlePerspective(net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType transformType, com.mojang.blaze3d.matrix.MatrixStack matrixStack) {
 +      return this.field_177566_c.handlePerspective(transformType, matrixStack);

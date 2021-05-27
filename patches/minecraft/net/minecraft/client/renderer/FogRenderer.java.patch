@@ -32,7 +32,7 @@
 @@ -175,9 +_,17 @@
        RenderSystem.fogMode(GlStateManager.FogMode.EXP2);
     }
-
+ 
 +   /**@deprecated Use {@link FogRenderer#setupFog(ActiveRenderInfo, FogType, float, boolean, float)}*/@Deprecated
     public static void func_228372_a_(ActiveRenderInfo p_228372_0_, FogRenderer.FogType p_228372_1_, float p_228372_2_, boolean p_228372_3_) {
 +      setupFog(p_228372_0_, p_228372_1_, p_228372_2_, p_228372_3_, 0);

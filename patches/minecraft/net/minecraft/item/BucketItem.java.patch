@@ -19,7 +19,7 @@
 +      this.field_77876_a = null;
 +      this.fluidSupplier = supplier;
     }
-
+ 
     public ActionResult<ItemStack> func_77659_a(World p_77659_1_, PlayerEntity p_77659_2_, Hand p_77659_3_) {
        ItemStack itemstack = p_77659_2_.func_184586_b(p_77659_3_);
        RayTraceResult raytraceresult = func_219968_a(p_77659_1_, p_77659_2_, this.field_77876_a == Fluids.field_204541_a ? RayTraceContext.FluidMode.SOURCE_ONLY : RayTraceContext.FluidMode.NONE);

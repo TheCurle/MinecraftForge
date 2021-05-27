@@ -56,6 +56,6 @@
 +      return this.stencilEnabled;
 +   }
 +   // Forge End
-
+ 
     public int func_242996_f() {
        return this.field_147617_g;

@@ -37,6 +37,6 @@
 +
 +   /** Called when the slime spawns particles on landing, see onUpdate. Return true to prevent the spawning of the default particles. */
 +   protected boolean spawnCustomParticles() { return false; }
-
+ 
     static class AttackGoal extends Goal {
        private final SlimeEntity field_179466_a;
