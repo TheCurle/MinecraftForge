@@ -42,6 +42,8 @@ public class Tags
     {
         private static void init(){}
 
+        public static final IOptionalNamedTag<Block> BARRELS = tag("barrels");
+        public static final IOptionalNamedTag<Block> BARRELS_WOODEN = tag("barrels/wooden");
         public static final IOptionalNamedTag<Block> CHESTS = tag("chests");
         public static final IOptionalNamedTag<Block> CHESTS_ENDER = tag("chests/ender");
         public static final IOptionalNamedTag<Block> CHESTS_TRAPPED = tag("chests/trapped");
@@ -49,6 +51,7 @@ public class Tags
         public static final IOptionalNamedTag<Block> COBBLESTONE = tag("cobblestone");
         public static final IOptionalNamedTag<Block> DIRT = tag("dirt");
         public static final IOptionalNamedTag<Block> END_STONES = tag("end_stones");
+        public static final IOptionalNamedTag<Block> ENDERMAN_PLACE_ON_BLACKLIST = tag("enderman_place_on_blacklist");
         public static final IOptionalNamedTag<Block> FENCE_GATES = tag("fence_gates");
         public static final IOptionalNamedTag<Block> FENCE_GATES_WOODEN = tag("fence_gates/wooden");
         public static final IOptionalNamedTag<Block> FENCES = tag("fences");
@@ -136,6 +139,8 @@ public class Tags
     {
         private static void init(){}
 
+        public static final IOptionalNamedTag<Item> BARRELS = tag("barrels");
+        public static final IOptionalNamedTag<Item> BARRELS_WOODEN = tag("barrels/wooden");
         public static final IOptionalNamedTag<Item> BONES = tag("bones");
         public static final IOptionalNamedTag<Item> BOOKSHELVES = tag("bookshelves");
         public static final IOptionalNamedTag<Item> CHESTS = tag("chests");

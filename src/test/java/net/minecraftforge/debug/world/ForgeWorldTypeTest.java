@@ -51,7 +51,7 @@ public class ForgeWorldTypeTest
     private void registerWorldTypes(RegistryEvent.Register<ForgeWorldType> event)
     {
         event.getRegistry().registerAll(
-                new ForgeWorldType(DimensionGeneratorSettings::func_242750_a).setRegistryName("test_world_type")
+                new ForgeWorldType(DimensionGeneratorSettings::makeDefaultOverworld).setRegistryName("test_world_type")
         );
         event.getRegistry().registerAll(
                 new ForgeWorldType(this::createChunkGenerator).setRegistryName("test_world_type2")
@@ -60,7 +60,7 @@ public class ForgeWorldTypeTest
 
     private ChunkGenerator createChunkGenerator(Registry<Biome> biomes, Registry<DimensionSettings> dimensionSettings, long seed, String settings)
     {
-        return DimensionGeneratorSettings.func_242750_a(biomes, dimensionSettings, seed);
+        return DimensionGeneratorSettings.makeDefaultOverworld(biomes, dimensionSettings, seed);
     }
 
     @Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -77,7 +77,7 @@ public class ForgeWorldTypeTest
 
                     addButton(new Button(0, 0, 120, 20, new StringTextComponent("close"), btn ->
                     {
-                        Minecraft.getInstance().displayGuiScreen(returnTo);
+                        Minecraft.getInstance().setScreen(returnTo);
                     }));
                 }
             });

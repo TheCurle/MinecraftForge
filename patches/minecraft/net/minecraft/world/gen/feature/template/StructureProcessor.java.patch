@@ -1,7 +1,6 @@
 --- a/net/minecraft/world/gen/feature/template/StructureProcessor.java
 +++ b/net/minecraft/world/gen/feature/template/StructureProcessor.java
-@@ -5,8 +5,38 @@
- import net.minecraft.world.IWorldReader;
+@@ -6,7 +_,37 @@
  
  public abstract class StructureProcessor {
 +   /**@deprecated Use {@link StructureProcessor#process(IWorldReader, BlockPos, BlockPos, Template.BlockInfo, Template.BlockInfo, PlacementSettings, Template)}*/@Deprecated
