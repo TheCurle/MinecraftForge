@@ -32,6 +32,7 @@ public interface IForgeEntityMinecart
     public static float DEFAULT_MAX_SPEED_AIR_LATERAL = 0.4f;
     public static float DEFAULT_MAX_SPEED_AIR_VERTICAL = -1.0f;
     public static double DEFAULT_AIR_DRAG = 0.95f;
+    /** TODO: Remove 1.17 */
     public static IMinecartCollisionHandler COLLISIONS = null;
 
     default AbstractMinecartEntity getMinecart() {
@@ -41,6 +42,7 @@ public interface IForgeEntityMinecart
     /**
      * Gets the current global Minecart Collision handler if none
      * is registered, returns null
+     * TODO: remove 1.17
      * @return The collision handler or null
      */
     default IMinecartCollisionHandler getCollisionHandler() {
@@ -52,11 +54,11 @@ public interface IForgeEntityMinecart
      */
     default BlockPos getCurrentRailPosition()
     {
-        int x = MathHelper.floor(getMinecart().getPosX());
-        int y = MathHelper.floor(getMinecart().getPosY());
-        int z = MathHelper.floor(getMinecart().getPosZ());
+        int x = MathHelper.floor(getMinecart().getX());
+        int y = MathHelper.floor(getMinecart().getY());
+        int z = MathHelper.floor(getMinecart().getZ());
         BlockPos pos = new BlockPos(x, y, z);
-        if (getMinecart().world.getBlockState(pos.down()).isIn(BlockTags.RAILS)) pos = pos.down();
+        if (getMinecart().level.getBlockState(pos.below()).is(BlockTags.RAILS)) pos = pos.below();
         return pos;
     }
 

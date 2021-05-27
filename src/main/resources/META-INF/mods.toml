@@ -8,7 +8,7 @@ issueTrackerURL="https://github.com/MinecraftForge/MinecraftForge/issues"
     # We use the global Forge version
     version="${global.forgeVersion}"
     displayName="Forge"
-    updateJSONURL="https://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json"
+    updateJSONURL="https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json"
     displayURL="https://minecraftforge.net/"
     logoFile="forge_logo.png"
     credits="Anyone who has contributed on GitHub and supports our development"

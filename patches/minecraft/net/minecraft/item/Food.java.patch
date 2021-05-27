@@ -1,12 +1,13 @@
 --- a/net/minecraft/item/Food.java
 +++ b/net/minecraft/item/Food.java
-@@ -11,15 +11,25 @@
+@@ -11,15 +_,25 @@
     private final boolean field_221472_c;
     private final boolean field_221473_d;
     private final boolean field_221474_e;
 -   private final List<Pair<EffectInstance, Float>> field_221475_f;
+-
 +   private final List<Pair<java.util.function.Supplier<EffectInstance>, Float>> field_221475_f;
- 
++
 +   private Food(Food.Builder builder) {
 +      this.field_221470_a = builder.field_221458_a;
 +      this.field_221471_b = builder.field_221459_b;
@@ -28,7 +29,7 @@
     }
  
     public int func_221466_a() {
-@@ -43,7 +53,7 @@
+@@ -43,7 +_,7 @@
     }
  
     public List<Pair<EffectInstance, Float>> func_221464_f() {
@@ -37,7 +38,7 @@
     }
  
     public static class Builder {
-@@ -52,7 +62,7 @@
+@@ -52,7 +_,7 @@
        private boolean field_221460_c;
        private boolean field_221461_d;
        private boolean field_221462_e;
@@ -46,7 +47,7 @@
  
        public Food.Builder func_221456_a(int p_221456_1_) {
           this.field_221458_a = p_221456_1_;
-@@ -79,13 +89,19 @@
+@@ -79,13 +_,19 @@
           return this;
        }
  
